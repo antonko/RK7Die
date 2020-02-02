@@ -9,7 +9,7 @@ namespace RK7Die.CashServer.Query
     [System.Xml.Serialization.XmlRootAttribute("RK7Query", Namespace = "")]
     public partial class RK7Query
     {
-        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlElementAttribute("RK7CMD", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public RK7Cmd RK7Cmd;
     }
 }
