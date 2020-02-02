@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using RK7Die.CashServer.Query;
 using System;
 using System.Collections.Generic;
@@ -12,31 +13,34 @@ namespace RK7Die.CashServer
 {
     public class Client
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<Client> _logger;
         private readonly HttpClient _httpClient;
         private readonly int _codePage;
+        private readonly ClientOptions _clientOptions;
 
-        public Client(ClientOptions clientOptions, ILogger logger = null)
+        public Client(IOptionsMonitor<ClientOptions> clientOptions, ILogger<Client> logger = null)
         {
-            if (clientOptions.ClientProtocol != ClientProtocol.http)
+            _clientOptions = clientOptions.CurrentValue;
+
+            if (_clientOptions.ClientProtocol != ClientProtocol.http)
             {
                 throw new Exception("Protocol is not supported by this library");
             }
 
             if (logger == null)
             {
-                _logger = NullLogger.Instance;
+                _logger = NullLogger<Client>.Instance;
             }
             else
             {
                 _logger = logger;
             }
 
-            _codePage = clientOptions.Codepage;
+            _codePage = _clientOptions.Codepage;
 
-            _logger.LogWarning("test");
+            _logger.LogWarning("Initialization RK7 CashServer client");
 
-            _httpClient = InitializationHttpClient(clientOptions);
+            _httpClient = InitializationHttpClient(_clientOptions);
 
 
         }
@@ -51,15 +55,14 @@ namespace RK7Die.CashServer
             HttpClient httpClient = new HttpClient(httpClientHandler);
 
             var hostUri = new Uri(clientOptions.Host);
-            var pathUri = new Uri(clientOptions.Path);
 
-            _httpClient.BaseAddress = new Uri(hostUri, pathUri);
+            httpClient.BaseAddress = new Uri(hostUri, clientOptions.Path);
 
             //Basic-авторизация, используется по умолчанию в RK7
             if (!String.IsNullOrEmpty(clientOptions.Username) && !String.IsNullOrEmpty(clientOptions.Password))
             {
                 var byteArray = Encoding.ASCII.GetBytes($"{clientOptions.Username}:{clientOptions.Password}");
-                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
             }
 
             return httpClient;

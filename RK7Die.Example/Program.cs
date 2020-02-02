@@ -1,58 +1,42 @@
-﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 using RK7Die.CashServer;
 using RK7Die.CashServer.Query;
 using Serilog;
-using System;
-using System.IO;
+using Serilog.Core;
+using Serilog.Events;
+using Serilog.Sinks.File;
 
 namespace RK7Die.Example
 {
-    class Program
+    public class Program
     {
-        public static IConfiguration Configuration { get; set; }
-
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello RK7Die.Example!");
+            var host = Host
+                .CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddOptions();
+                    services.Configure<RK7Die.CashServer.ClientOptions>(hostContext.Configuration.GetSection("RK7Client"));
+                    services.AddSingleton<RK7Die.CashServer.Client>();
 
-            var configBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true);
-            var config = configBuilder.Build();
+                })
+                .UseSerilog()
+                .UseConsoleLifetime()
+                .Build();
 
+            host.RunAsync();
 
-            var serviceProvider = new ServiceCollection()
-                .AddSingleton<Client>()
-                .Configure<ClientOptions>(Configuration)
-                .BuildServiceProvider();
+            var client = host.Services.GetService<RK7Die.CashServer.Client>();
 
-            //do the actual work here
-            var client = serviceProvider.GetService<Client>();
-
-            //var config = new ConfigurationBuilder()
-            //    .AddCommandLine(args)
-            //    .Build();
-
-            //ClientOptions clientOptions = new ClientOptions
-            //{
-            //    Host = config["host"],
-            //    Username = config["username"],
-            //    Password = config["password"]
-            //};
-
-            //Log.Logger = new LoggerConfiguration()
-            //    .MinimumLevel.Verbose()
-            //    .WriteTo.File("log.txt")
-            //    .CreateLogger();
-
-            //client = new Client(clientOptions, Log.Logger);
-
-            //GetOrderList(client);
-
-            //Console.ReadKey();
+            GetOrderList(client);
         }
 
         static private void GetOrderList(Client client)
