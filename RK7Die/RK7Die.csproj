@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="CashServer\Query\" />
+    <Folder Include="CashServer\Result\" />
+  </ItemGroup>
+
 </Project>
