@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "RK7Die.Example": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
