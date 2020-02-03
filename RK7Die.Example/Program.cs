@@ -2,16 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using RK7Die.CashServer;
 using RK7Die.CashServer.Query;
 using Serilog;
-using Serilog.Core;
-using Serilog.Events;
-using Serilog.Sinks.File;
 
 namespace RK7Die.Example
 {
@@ -26,9 +21,9 @@ namespace RK7Die.Example
                     services.AddOptions();
                     services.Configure<RK7Die.CashServer.ClientOptions>(hostContext.Configuration.GetSection("RK7Client"));
                     services.AddSingleton<RK7Die.CashServer.Client>();
-
                 })
-                .UseSerilog()
+                .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+                    .ReadFrom.Configuration(hostingContext.Configuration))
                 .UseConsoleLifetime()
                 .Build();
 
@@ -37,6 +32,8 @@ namespace RK7Die.Example
             var client = host.Services.GetService<RK7Die.CashServer.Client>();
 
             GetOrderList(client);
+
+            Console.ReadKey();
         }
 
         static private void GetOrderList(Client client)
@@ -47,8 +44,6 @@ namespace RK7Die.Example
             };
 
             string result = client.SendQuery(getOrderList);
-
-            Console.WriteLine(result);
         }
     }
 }
