@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="FileItem">
+        <xs:attribute name="name" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Имя файла</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="size" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Размер файла</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ GetDataListInfo</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="File" type="FileItem" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Список файлов смен из папки ForSend</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="ConnectStatus">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Информация о наличии связи с сервером верхнего уровня</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:attribute name="servername" type="xs:normalizedString">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Имя сервера</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="connected" type="xs:boolean">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Есть ли связь с сервером верхнего уровня</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation=".\common.xsd"/>
+
+    <xs:simpleType name="deviceType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MagneticCard">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Магнитная карта</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Keyboard">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Клавиатура</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Dallas">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Даллас</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="BarCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Сканер штрих-кодов</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NoTouche">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Бесконтактный считыватель</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+            
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Касса] Применение MCR-алгоритмов к кассе (эмуляция прокатывания карты)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:attribute name="CMD" fixed="ApplyMCR"/>
+                        <xs:attribute name="data" type="xs:normalizedString" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Строка с данными</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="devicetype" type="deviceType" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Тип устройства</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="deviceid" type="xs:int" use="optional" default="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Номер устройства</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

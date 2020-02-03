@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="menuItem">
+        <xs:complexContent>
+            <xs:extension base="refItem">
+                <xs:attribute name="quantity" type="xs:int" use="required">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Количество блюда (в тысячных долях)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый сервер, Касса] Подвердить выполнение операции, записать операцию в журнал операций</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Operation" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Операция</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Station" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Manager" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Пользователь, выполняющий операцию</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Order" type="orderElement" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Maket" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Представление документа для операции</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Dish" type="menuItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Элемент меню, связанный с операцией</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="CMD" fixed="ConfirmOperation"/>
+                        <xs:attribute name="param" type="xs:int" use="optional" default="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Параметр операции</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="opengui" type="xs:boolean" use="optional" default="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Если флаг выставлен и у пользователя нет прав, то запрос перенаправляется на станцию. 
+                                    На станции открывается диалог для подтверждения права на операцию</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

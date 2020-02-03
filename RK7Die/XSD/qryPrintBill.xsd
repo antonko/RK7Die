@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый сервер] Печать пречека</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Order" type="orderElement" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Station" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Cashier" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Maket" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Представление документа для
+                                        пречека. Если не задано, то представление опредляется по схеме печати</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="CMD" fixed="PrintBill"/>
+                        <xs:attribute name="bySeats" type="xs:boolean">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">true - пречек по местам, false -
+                                    общий пречек</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="seat" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Номер места, по которому будет распечатан пречек (при расчете по местам). xmlver=32</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

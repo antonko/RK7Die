@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!--  xsi:noNamespaceSchemaLocation="XMLSchema.xsd" -->
+
+<xs:include schemaLocation="common.xsd"/>
+
+        <xs:complexType name="LogicalDevicesRes">
+			<xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="LogicalDevices" minOccurs="1" maxOccurs="1">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LogicalDevice" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="resRefItem">
+													<xs:attribute name="modClass" type="xs:nonNegativeInteger"/>
+													<xs:attribute name="guid" type="xs:normalizedString"/>
+													<xs:attribute name="driver" type="xs:string"/>
+													<xs:attribute name="number" type="xs:nonNegativeInteger"/>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+			</xs:complexContent>
+        </xs:complexType>
+    
+	<xs:element name="RK7QueryResult" type="LogicalDevicesRes"/>
+<!--            <xs:element name="RK7QueryResult">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CommandResult" type="LogicalDevicesRes" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+                </xs:element>
+-->				
+</xs:schema>

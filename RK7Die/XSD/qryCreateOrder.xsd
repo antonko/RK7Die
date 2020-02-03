@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation=".\common.xsd"/>
+
+    <xs:complexType name="VisitElement">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Ссылка на визит. Можно выбрать либо по guid либо по visit</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="guid">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID визита</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="visit" type="xs:positiveInteger">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Идентификатор визита (используется, если не задан guid)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый сервер] Создать заказ</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Order" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="Visit" type="VisitElement" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Визит.Если задан, то заказ будет добавлен в этот визит, иначе будет создан новый визит</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Table" type="refItem" minOccurs="1">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Стол</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Station" type="refItem" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Станция, на которой создается заказ</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Creator" type="refItem" minOccurs="0">
+                                            <xs:annotation>
+                                               <xs:documentation xml:lang="ru">Работник, создавший заказ</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Waiter" type="refItem" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Главный официант</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="OrderCategory" type="refItem"
+                                            minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Категория заказа</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="OrderType" type="refItem" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Тип заказа</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Defaulter" type="refItem" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Тип неплательщика</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="GuestType" type="refItem" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Тип гостей</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="Guests" type="Guests_Item" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Список гостей</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="ExtraTables" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Список дополнительных столов</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="item" type="refItem"
+                                                  maxOccurs="unbounded"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="ExternalProps" type="externalProps"
+                                            minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Список внешних свойств заказа</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="DeliveryBlock" type="deliveryBlock" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Блок данных для заказа доставки. Заполнять в случае если создается заказ для доставки</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:all>
+                                    <xs:attribute name="openTime" type="xs:dateTime">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Время начала заказа (для резерва)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="duration" type="xs:dateTime">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Длительность заказа (для резерва)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="holder" type="xs:normalizedString">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Владелец (для резерва)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="promoCode" type="xs:normalizedString">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Промо-код заказа</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="persistentComment"
+                                        type="xs:normalizedString">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Сохраняемый комментарий</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="nonPersistentComment"
+                                        type="xs:normalizedString">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Несохраняемый комментарий</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="guid" type="xs:normalizedString" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">GUID заказа. Если не задан, то будет сгенерирован новый guid</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="CMD" fixed="CreateOrder"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

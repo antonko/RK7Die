@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+   <xs:complexType name="PrepayItem">
+       <xs:attributeGroup ref="refItemAttributes">
+           <xs:annotation>
+               <xs:documentation xml:lang="ru">Валюта. 
+                   Идентифицируется или id, или кодом, или guid. Обязательно заполнение одного из полей</xs:documentation>
+           </xs:annotation>
+       </xs:attributeGroup>
+       <xs:attribute name="amount" type="xs:nonNegativeInteger" use="required">
+           <xs:annotation>
+               <xs:documentation xml:lang="ru">Сумма к оплате (в копейках)</xs:documentation>
+           </xs:annotation>
+       </xs:attribute>
+       <xs:attribute name="line_guid" type="xs:normalizedString" use="optional">
+           <xs:annotation>
+               <xs:documentation xml:lang="ru">GUID строки с предоплатой</xs:documentation>
+           </xs:annotation>
+       </xs:attribute>
+   </xs:complexType>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Начать авторизацию карты через терминал (ver 2)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Order" type="orderElement" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Station" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Waiter" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Prepay" type="PrepayItem" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Добавляемый платеж. Платеж добавляется в заказ как предоплата</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="CMD" fixed="TerminalAuthStart2"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

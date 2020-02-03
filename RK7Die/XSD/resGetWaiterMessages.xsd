@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:simpleType name="messageType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Unknown"/>
+            <xs:enumeration value="FromTable"/>
+            <xs:enumeration value="FromMonitor"/>
+            <xs:enumeration value="DishesReady"/>
+            <xs:enumeration value="ErrorNotify"/>
+            <xs:enumeration value="KitchenRequest"/>
+            <xs:enumeration value="FromStationScript"/>
+            <xs:enumeration value="FromServerScript"/>
+            <xs:enumeration value="XMLInterface"/>
+            <xs:enumeration value="LicenseInfo"/>
+            <xs:enumeration value="TariffClosing"/>
+            <xs:enumeration value="SysTimeChanged"/>
+            <xs:enumeration value="FromManagerStation"/>
+            <xs:enumeration value="SecondScreen"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Касса, Кассовый сервер] xml-ответ GetWaiterMessages</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="Message" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="id" type="xs:positiveInteger">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">ID сообщения</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="text" type="xs:normalizedString">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Текст сообщения</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="messageType" type="messageType">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Тип сообщения</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="param" type="xs:int">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Параметр сообщения</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="createTime" type="xs:dateTime">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Время создания сообщения</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="expireTime" type="xs:dateTime">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Время жизни сообщения</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="repeatCount" type="xs:nonNegativeInteger">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Число повторений</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

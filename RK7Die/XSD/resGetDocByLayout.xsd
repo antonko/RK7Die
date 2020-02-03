@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: GetDocByLayout</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:all>
+                        <xs:element name="LayoutResult">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Строка с данными макета печати</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="LayoutCode" type="xs:int" use="optional">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Код выбранного макета</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="LayoutFilters"
+                                            type="xs:normalizedString" use="optional">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Фильтры для макета вида поле=значение[{;поле=значение}]</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                        <xs:attribute name="DataSourceParams"
+                                            type="xs:normalizedString" use="optional">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Фильтры для куба вида поле=значение[{;поле=значение}]</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

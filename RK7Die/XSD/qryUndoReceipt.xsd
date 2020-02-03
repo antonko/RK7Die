@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Аннулирование чека</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Manager" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Maket" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Представление документа для аннулирования чека</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="DeleteReason" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Причина аннулирования чека</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="CMD" fixed="UndoReceipt"/>
+                        <xs:attribute name="ReceiptNum" type="xs:positiveInteger" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Номер чека</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="ManagerPassword" type="xs:normalizedString"
+                            use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Пароль менеджера</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

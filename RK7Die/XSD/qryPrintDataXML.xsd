@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="unifr.xsd"/>
+
+  <xs:complexType name="PrintDataXML">
+                        <xs:sequence>
+                            <xs:element name="Purpose" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Назначение печати, должно быть с галочкой "на ресторан" либо надо задать станцию</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Station" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Станция принтера, если назначение печати не "на ресторан", то принтер будет определён через назначение для этой станции. Физически принтер может быть на другой станции"</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                          <xs:element name="Unfiscal" type="uniUnfiscal" minOccurs="1">
+                            <xs:annotation>
+                              <xs:documentation xml:lang="ru">Данные для печати в формате нефискальной печати универсального драйвера</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="CMD" fixed="PrintDataXML"/>
+                        <xs:attribute name="Timeout" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Таймаут ожидания готовности устройства, при 0 асинхронная отправка в очередь без ошибок</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Печать пользовательского документа</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="RK7CMD" type="PrintDataXML"/>
+                <xs:sequence>
+                   <xs:element name="RK7Command" type="PrintDataXML" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:sequence>
+                   <xs:element name="RK7Command2" type="PrintDataXML" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

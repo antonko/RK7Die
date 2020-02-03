@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="refName">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PriceFormulas"/>
+            <xs:enumeration value="ModiSchemeDetails"/>
+            <xs:enumeration value="Filters"/>
+            <xs:enumeration value="SelectorDetails"/>
+            <xs:enumeration value="Taxes"/>
+            <xs:enumeration value="TaxDishRules"/>
+            <xs:enumeration value="TaxPayRules"/>
+            <xs:enumeration value="TaxDishTypes"/>
+            <xs:enumeration value="Kurses"/>
+            <xs:enumeration value="ServiceChecks"/>
+            <xs:enumeration value="DiscountDetails"/>
+            <xs:enumeration value="DiscountCompositions"/>
+            <xs:enumeration value="TariffDetails"/>
+            <xs:enumeration value="PRICEFORMULAS"/>
+            <xs:enumeration value="MODISCHEMEDETAILS"/>
+            <xs:enumeration value="FILTERS"/>
+            <xs:enumeration value="SELECTORDETAILS"/>
+            <xs:enumeration value="TAXES"/>
+            <xs:enumeration value="TAXDISHRULES"/>
+            <xs:enumeration value="TAXPAYRULES"/>
+            <xs:enumeration value="TAXDISHTYPES"/>
+            <xs:enumeration value="KURSES"/>
+            <xs:enumeration value="SERVICECHECKS"/>
+            <xs:enumeration value="DISCOUNTDETAILS"/>
+            <xs:enumeration value="DISCOUNTCOMPOSITIONS"/>
+            <xs:enumeration value="TARIFFDETAILS"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="referentItem">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Элемент справочника. Идентифицируется или Ident, или GUIDString.
+                Обязательно заполнение одного из полей</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="Ident" type="xs:nonNegativeInteger"/>
+        <xs:attribute name="GUIDString" type="xs:normalizedString"/>
+        <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+    
+    <xs:complexType name="RK7CommandExchangePriority">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Команда ExchangePriority</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Item1" type="referentItem" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Элемент справочника (идентификатор элемента)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Item2" type="referentItem" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Элемент справочника (идентификатор элемента)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+	<xs:attribute name="CMD" fixed="ExchangePriority" use="required"/>
+        <xs:attribute name="RefName" type="refName" use="required"/>
+    </xs:complexType>
+
+  <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Команда ExchangePriority - переставить местами элементы по приоритету</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="RK7CMD" type="RK7CommandExchangePriority"/>
+                <xs:sequence>
+                   <xs:element name="RK7Command" type="RK7CommandExchangePriority" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:sequence>
+                   <xs:element name="RK7Command2" type="RK7CommandExchangePriority" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

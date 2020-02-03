@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:complexType name="Employee">
+    <xs:all>
+      <xs:element name="item_code" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код работника</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя работника</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ptype" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя роли работника</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="SysParams">
+    <xs:sequence>
+      <xs:element name="rest_code" minOccurs="1" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Полный код ресторана</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="unit_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код кассовой станции</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="server_name" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сетевое имя кассового сервера</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transaction_time" minOccurs="1" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Время генерации титра</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="shift_date" minOccurs="1" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Дата общей смены</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="shift_num" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер общей смены</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LoginPerson" minOccurs="0" type="Employee">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Зарегистрированный на кассе работник</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Guest">
+    <xs:sequence>
+      <xs:element name="item_seat" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер места</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Метка гостя</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="card_code" minOccurs="0" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер карты</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="interface_code" minOccurs="0" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код интерфейса, посредством которого нужно обрабатывать
+            карту</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Modifier">
+    <xs:sequence>
+      <xs:element name="item_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код модификатора</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя модификатора</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID модификатора</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_count" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Количество</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_price" minOccurs="0" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Цена</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Modifiers">
+    <xs:sequence>
+      <xs:element name="Modifier" type="Modifier" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ComboComponent">
+    <xs:all>
+      <xs:element name="item_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код комбо-компонента</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя комбо-компонента</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID комбо-компонента</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_count" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Количество</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_price" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Цена</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Modifiers" type="Modifiers" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Модификаторы</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Discounts" type="Discounts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Скидки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Voids" type="Voids" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Причины удаления</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="CheckLine">
+    <xs:all>
+      <xs:element name="item_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код блюда</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя блюда</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID блюда</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_price" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Цена</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_count" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Количество</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_seat" minOccurs="0" type="xs:nonNegativeInteger" default="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер посадочного места</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="printed" minOccurs="1" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Признак того, что была сервис-печать данного
+            блюда</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Modifiers" type="Modifiers" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Модификаторы</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Discounts" type="Discounts" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Скидки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Voids" type="Voids" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Причины удаления</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ComboItems" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Комбо-компоненты (для комбо-блюда)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Dish" type="ComboComponent" minOccurs="1" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="Pay">
+    <xs:sequence>
+      <xs:element name="item_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код валюты</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя валюты</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID оплаты</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_total" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сумма</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="card_code" minOccurs="0" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер карты (если оплата на карту)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="interface_code" minOccurs="0" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код интерфейса, посредством которого была проведена оплата
+            картой</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Discount">
+    <xs:sequence>
+      <xs:element name="item_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код скидки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя скидки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID скидки</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_total" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сумма</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_seat" minOccurs="0" type="xs:nonNegativeInteger" default="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер посадочного места</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="card_code" type="xs:normalizedString" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер карты (если скидка связана с
+            картой)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="interface_code" type="xs:positiveInteger" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код интерфейса, посредством которого была проведена
+            скидка</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Discounts">
+    <xs:sequence>
+      <xs:element name="Discount" type="Discount" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Void">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Причина удаления</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="Cashier" type="Employee">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Работник, выполняющий удаление</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код причины удаления</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя причины удаления</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID причины удаления</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_count" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Количество</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_total" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сумма</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transaction_time" minOccurs="1" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Время, когда удаление было сделано</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="Voids">
+    <xs:sequence>
+      <xs:element name="Void" type="Void" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Check">
+    <xs:sequence>
+      <xs:element name="check_number" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер чека</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID чека</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_total" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сумма чека</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transaction_time" minOccurs="0" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Время печати чека</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="start_time" minOccurs="0" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Время начала рассчета чека</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="bill_time" minOccurs="0" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Время печати пречека</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="delete_time" minOccurs="0" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Время удаления чека</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_seat" minOccurs="0" type="xs:nonNegativeInteger" default="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер посадочного места</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Cashier" type="Employee">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ChangedItem">
+    <xs:sequence>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID измененного элемента</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="new" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Признак того, что элемент был добавлен</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="changed" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Признак того, что элемент был
+            отредактирован</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="deleted" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Признак того, что элемент был удален</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="oldvalue" type="xs:normalizedString" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Старое значение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="newvalue" type="xs:normalizedString" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Новое значение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="oper_guid" type="xs:normalizedString" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">guid операции, которая привела к
+            изменению</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="oper_code" type="xs:positiveInteger" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Код операции, которая привела к
+            изменению</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="oper_name" type="xs:normalizedString" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя операции, которая привела к
+            изменению</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Manager" type="Employee">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Менеджер, подтвердивший выполнение операции</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Item">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сам изменный элемент</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Order">
+    <xs:sequence>
+      <xs:element name="item_code" minOccurs="1" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Порядковый номер заказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_name" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Имя заказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="guid" minOccurs="1" type="xs:normalizedString">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">GUID заказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="item_total" minOccurs="1" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сумма заказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transaction_time" minOccurs="1" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Время создания заказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Guests">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Список гостей</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Guest" type="Guest" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Waiter" type="Employee" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Главный официант заказа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Document">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="SysParams" type="SysParams" minOccurs="1"/>
+        <xs:element name="Order" type="Order" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="FromOrder" type="Order" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Заказ из которого был осуществлен перенос (операция
+              перенос блюд между заказами)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Check" type="Check" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Чек</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="CheckLines" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CheckLine" type="CheckLine" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Discounts" type="Discounts" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Скидки</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="PayLines" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Платежи</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Pay" type="Pay" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ChangedItem" type="ChangedItem" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Изменный элемент</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="item_code" use="required" type="xs:positiveInteger">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Тип титра</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="item_name" type="xs:normalizedString" use="required">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Название типа титра</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="title_dll_version" type="xs:integer" use="required">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Номер версии генерирующей титры dll</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="guid" use="required">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">guid типа титра</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="{9ECCB1B5-97EE-4B88-9840-8568F05586D0}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Запуск кассовой программы</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{84560B45-DAE3-4AF6-A625-2A12D086D770}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Выход в главное меню</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{8A4AB428-B1AB-4301-A400-A3B889A1F7CA}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Заказ изменен</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{DB1C93D2-AB1D-4CC7-A932-C3EEB3620765}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Рассчет заказа</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{C85A125C-A088-4D7A-9C82-B54777213E79}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Начало печати чека</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{F7A07E9D-D2EA-4865-9DFF-43C6EAF2A8C7}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Печать чека</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{68F38B8E-48AC-4C3A-B528-27DB62637A30}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Открытие ящика</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{6BD2F6E6-82EF-403E-8FBF-0C082BD26944}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Печать отчета</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{6EE0F3CE-A621-4FA8-8134-87C35FC24E09}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Перенос блюд между заказами</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{2473F575-BC0D-47EB-AAEA-916F9466ECB4}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Выход из заказа без сохранения</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{F1BC366C-A009-4FFB-9D82-5493C6EF80FC}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Отмена регистрации работника
+                  (logout)</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{833F0492-E8ED-4F34-81BC-8A9F4D73A995}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Создание нового заказа</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{957218BA-6F52-4D14-B88E-4981F6DE22BF}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Открытие заказа на редактирование (ранее
+                  сохраненного)</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{9D1EC578-606D-4248-8281-AFBCE6B16B36}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Сохранение заказа</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{6CAF275A-A536-464A-8B3C-0E6E5C999908}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Удаление чека</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{BA9FB9B3-4791-4A32-98B2-D6C877C2AF2F}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Печать пречека</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{DFEE447B-FF7C-4F7F-A531-7F42D1339FF0}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Отмена пречека</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{5D94E238-88F1-47D3-A1DB-3A78411E244E}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Закрытие кассовой программы</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{73030F4B-E44C-4842-A94E-23262161FEE2}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Подтверждение при сохранении
+                  заказа</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{0C7A6A2F-2496-4547-BC9D-5DB252AED8A5}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Редактирование свойств заказа</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{81A89081-D394-4070-BD37-A8E54CCA7B56}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Логин в кассовую программу</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="{10D5E4EE-F277-4AA4-83CD-75CCAEDF62C0}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Открытие формы</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>            
+            <xs:enumeration value="{879C0711-59E7-4BBF-8A67-766D15A70FDD}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Закрытие кассового ящика</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>            
+            <xs:enumeration value="{C85A125C-A088-4D7A-9C82-B54777213E79}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Начало печати чека</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>           
+            <xs:enumeration value="{E4F45ED3-E64D-48B0-AFE8-7A258AF1421D}">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Прокатывание ПДС карты</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>            
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

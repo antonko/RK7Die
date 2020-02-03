@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Получить список заказов</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Waiter" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Официант. Если задан, то
+                                        возвращаются заказы, которые официант может
+                                        обслуживать</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Table" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Стол. Если задан, то
+                                        возвращаются заказы для этого стола</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="CMD" fixed="GetOrderList"/>
+                        <xs:attribute name="lastversion" type="xs:integer" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Кэшировать результат запроса. Если версия таблицы заказов совпадает с lastversion, то возвращается "No changes", иначе обычный ответ</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="onlyOpened" type="xs:boolean" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Флаг - вернуть только активные
+                                    заказы</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="needIdents" type="xs:boolean" use="optional" default="1">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Флаг - возвращать идентификаторы
+                                    элементов</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="needCodes" type="xs:boolean" use="optional" default="1">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Флаг - возвращать коды
+                                    элементов</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="needNames" type="xs:boolean" use="optional" default="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Флаг - возвращать имена
+                                    элементов</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

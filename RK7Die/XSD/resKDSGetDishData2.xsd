@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="KDSModiItem">
+        <xs:attribute name="line_guid" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID строки</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="id" type="xs:nonNegativeInteger">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Идентификатор модификатора</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="openname" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Имя модификатора</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="count" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Кол-во модификаторов (начиная с 7.5.5.104+)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="KDSDishItem">
+        <xs:sequence>
+            <xs:element name="ModiData" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Modi" type="KDSModiItem" maxOccurs="unbounded"></xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="count" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Количество
+                                заказов</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="line_guid" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID строки</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="id" type="xs:nonNegativeInteger">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Идентификатор блюда</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="quantity" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Количество блюда (в тысячных
+                    долях)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="seqnum" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Уникальный последовательный номер
+                    блюда</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="stream" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Идентификатор категории блюд (потока
+                    сервис-печати)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="parent_guid" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID комбо-блюда. Заполняется для комбо-компонентов</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="state" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Статус блюда (с версии 7.5.4.150)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="kdsstate" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">КДС статус блюда (с версии 7.5.4.156)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="seat" type="xs:nonNegativeInteger">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер места</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="seatname" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Тестовая метка места</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="source_line_guid" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID исходной строки с блюдом. 
+                Если блюдо было перенесено из другого заказа, то в этом поле записывается line_guid исходной строки с блюдом
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    
+    <xs:complexType name="KDSDishData">
+        <xs:sequence>
+            <xs:element name="Dish" type="KDSDishItem" maxOccurs="unbounded"> 
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="count" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Количество блюд</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="KDSSessionItem">
+        <xs:sequence>
+            <xs:element name="Station" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Касса, на которой пакет был
+                        добавлен</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Course" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Порядок подачи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DishData" type="KDSDishData">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Список блюд</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="line_guid" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID пакета</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="senttime" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Время отправки на КДС</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="seqnum" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Уникальный последовательный номер
+                    пакета</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="KDSOrderItem">
+        <xs:sequence>
+            <xs:element name="Waiter" type="resRefItem">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Главный официант заказа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OrderCategory" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Категория заказа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OrderType" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Категория заказа</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Table" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Стол</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Session" type="KDSSessionItem" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Пакет</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="guid" type="xs:normalizedString" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID заказа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="seqnum" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Уникальный последовательный номер
+                    заказа</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="comment" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Сохраняемый комментарий</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="nonpersistentcomment" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Несохраняемый комментарий</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: KDSGetDishData2</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="Orders">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Order" type="KDSOrderItem" minOccurs="0"
+                                        maxOccurs="unbounded"/>
+                                </xs:sequence>
+                                <xs:attribute name="count" type="xs:integer">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Количество
+                                            заказов</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="lastversion" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Контрольная сумма, посчитанная по
+                                используемым таблицам</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

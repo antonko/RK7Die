@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый север] КДС: Получить данные по блюдам и заказам. Начиная с 7.5.3.222, 7.5.4.068</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:attribute name="CMD" fixed="KDSGetDishData2"/>
+                        <xs:attribute name="lastversion" type="xs:int">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Кэшировать результат запроса. Если lastversion совпадает с контрольной суммой, то возвращается "No changes", иначе обычный ответ</xs:documentation> 
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

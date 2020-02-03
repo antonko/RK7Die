@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation=".\common.xsd"/>
+
+    <xs:element name="RK7Query">
+        <xs:complexType>
+            <xs:all>
+
+                <xs:element name="RK7CMD">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Создать визит</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="GuestType" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Тип гостей</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Guests" type="Guests_Item" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Список гостей</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="CMD" fixed="CreateVisit"/>
+                        <xs:attribute name="guid" type="xs:normalizedString" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">GUID визита. Если не задан, то будет сгенерирован новый guid</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="persistentComment" type="xs:normalizedString">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Сохраняемый
+                                    комментарий</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="nonPersistentComment" type="xs:normalizedString">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Несохраняемый
+                                    комментарий</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

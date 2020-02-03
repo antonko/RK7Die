@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!--  xsi:noNamespaceSchemaLocation="XMLSchema.xsd" -->
+
+<xs:include schemaLocation="common.xsd"/>
+    
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: PayOrder</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="PrintCheck" type="PrintCheckItem" minOccurs="0" maxOccurs="unbounded"/>                        
+                        <xs:element name="PrintCheckWarning" type="xs:string" minOccurs="0" maxOccurs="1"/>                        
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="CommonShift">
+        <xs:attribute name="ShiftDate" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Логическая дата смены</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ShiftNum" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер смены</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ShiftStartTime" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">ДатаВремя начала смены</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ GetSystemInfo2</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="SystemInfo" minOccurs="1">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element name="Cash" type="refItem" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Касса (заполняется, если запрос вызван для кассы)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="CashGroup" type="refItem">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Кассовый сервер</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="Restaurant" type="refItem">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Ресторан</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="Waiter" type="refItem" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Текущий пользователь (заполняется, если запрос вызван для кассы)</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="CommonShift" type="CommonShift">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Общая смена</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:all>
+                                <xs:attribute name="ProcessID" type="xs:int">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Идентификатор процесса</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="RestCode" type="xs:int">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Код ресторана</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="uptime" type="xs:dateTime">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Время работы программы</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

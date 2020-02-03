@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый сервер] Отменить регистрацию сотрудника</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Waiter" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Официант</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Manager" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Менеджер, выполняющий отмену регистрации</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Station" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="CMD" fixed="UnregisterEmployee"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="DrawerRestItem">
+        <xs:all>
+            <xs:element name="Station" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Станция, на которую зарегистрирован ящик</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Drawer" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Ящик</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Currency" type="resRefItem">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Валюта</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Printer" type="resRefItem">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Принтер</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="amount" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Остаток (в копейках)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: GetDrawerBalance</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="Item" type="DrawerRestItem" minOccurs="0"
+                            maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Остатки</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="refName">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BonusTypes"/>
+            <xs:enumeration value="Brigades"/>
+            <xs:enumeration value="Cashes"/>
+            <xs:enumeration value="CashGroups"/>
+            <xs:enumeration value="CashReportDetails"/>
+            <xs:enumeration value="CashServDataStatuses"/>
+            <xs:enumeration value="CategList"/>
+            <xs:enumeration value="ChangeableOrderTypes"/>
+            <xs:enumeration value="CheckTables"/>
+            <xs:enumeration value="ClassificatorGroups"/>
+            <xs:enumeration value="ClassInfoGroups"/>
+            <xs:enumeration value="ClassInfos"/>
+            <xs:enumeration value="ClockRecs"/>
+            <xs:enumeration value="ColorMappings"/>
+            <xs:enumeration value="ColorSchemes"/>
+            <xs:enumeration value="Consumators"/>
+            <xs:enumeration value="ConsumTypes"/>
+            <xs:enumeration value="Currencies"/>
+            <xs:enumeration value="CurrencyFaceValues"/>
+            <xs:enumeration value="CurrencyTypes"/>
+            <xs:enumeration value="DefaulterTypes"/>
+            <xs:enumeration value="DefferedSync"/>
+            <xs:enumeration value="DepositCollectReasons"/>
+            <xs:enumeration value="DeviceDataLookUpItems"/>
+            <xs:enumeration value="Devices"/>
+            <xs:enumeration value="DiscountCompositions"/>
+            <xs:enumeration value="DiscountDetails"/>
+            <xs:enumeration value="Discounts"/>
+            <xs:enumeration value="DiscountTypes"/>
+            <xs:enumeration value="DisplayResolutions"/>
+            <xs:enumeration value="DocumentMaketSchemeLinks"/>
+            <xs:enumeration value="Documents"/>
+            <xs:enumeration value="DosingDevices"/>
+            <xs:enumeration value="EmployeeGroupDetails"/>
+            <xs:enumeration value="EmployeeGroups"/>
+            <xs:enumeration value="Employees"/>
+            <xs:enumeration value="EntranceCardTypes"/>
+            <xs:enumeration value="Filters"/>
+            <xs:enumeration value="FiscDevParams"/>
+            <xs:enumeration value="FormDetails"/>
+            <xs:enumeration value="Forms"/>
+            <xs:enumeration value="FormSchemeChilds"/>
+            <xs:enumeration value="FormSchemes"/>
+            <xs:enumeration value="FunctionKeyGroups"/>
+            <xs:enumeration value="FunctionKeys"/>
+            <xs:enumeration value="GuestTypes"/>
+            <xs:enumeration value="HallPlans"/>
+            <xs:enumeration value="ImageList"/>
+            <xs:enumeration value="ImageNodes"/>
+            <xs:enumeration value="InpDevTypes"/>
+            <xs:enumeration value="KBDLayouts"/>
+            <xs:enumeration value="KBDTypes"/>
+            <xs:enumeration value="Kurses"/>
+            <xs:enumeration value="Makets"/>
+            <xs:enumeration value="MaketSchemeDetails"/>
+            <xs:enumeration value="MaketSchemes"/>
+            <xs:enumeration value="McrAlgorithms"/>
+            <xs:enumeration value="MenuItems"/>
+            <xs:enumeration value="MenuItemsHierarchies"/>
+            <xs:enumeration value="Modifiers"/>
+            <xs:enumeration value="ModiGroups"/>
+            <xs:enumeration value="ModiSchemeDetails"/>
+            <xs:enumeration value="ModiSchemes"/>
+            <xs:enumeration value="OlapCubes"/>
+            <xs:enumeration value="OlapCubeSchemes"/>
+            <xs:enumeration value="OperationClasses"/>
+            <xs:enumeration value="Operations"/>
+            <xs:enumeration value="OrderVoids"/>
+            <xs:enumeration value="ParameterExceptions"/>
+            <xs:enumeration value="ParameterHierarhies"/>
+            <xs:enumeration value="Parameters"/>
+            <xs:enumeration value="PeriodDetails"/>
+            <xs:enumeration value="Periods"/>
+            <xs:enumeration value="PersonList"/>
+            <xs:enumeration value="PriceConstants"/>
+            <xs:enumeration value="PriceConstantTypes"/>
+            <xs:enumeration value="Prices"/>
+            <xs:enumeration value="PriceTypes"/>
+            <xs:enumeration value="PrinterPurposes"/>
+            <xs:enumeration value="RateClasses"/>
+            <xs:enumeration value="RefLinks"/>
+            <xs:enumeration value="ReportingServers"/>
+            <xs:enumeration value="RestaurantConcepts"/>
+            <xs:enumeration value="RestaurantRegions"/>
+            <xs:enumeration value="Restaurants"/>
+            <xs:enumeration value="RightGroups"/>
+            <xs:enumeration value="Rights"/>
+            <xs:enumeration value="Roles"/>
+            <xs:enumeration value="Scripts"/>
+            <xs:enumeration value="ScriptTypes"/>
+            <xs:enumeration value="SelectorDetails"/>
+            <xs:enumeration value="SelectorGroups"/>
+            <xs:enumeration value="SelectorHierarhies"/>
+            <xs:enumeration value="Selectors"/>
+            <xs:enumeration value="SelectorTypes"/>
+            <xs:enumeration value="ServiceChecks"/>
+            <xs:enumeration value="ServiceSchemes"/>
+            <xs:enumeration value="ServingPositions"/>
+            <xs:enumeration value="TableAttributes"/>
+            <xs:enumeration value="TableGroups"/>
+            <xs:enumeration value="Tables"/>
+            <xs:enumeration value="TariffDetails"/>
+            <xs:enumeration value="TarifficationTypes"/>
+            <xs:enumeration value="TaskSetters"/>
+            <xs:enumeration value="TaxDishRules"/>
+            <xs:enumeration value="TaxDishTypes"/>
+            <xs:enumeration value="Taxes"/>
+            <xs:enumeration value="TaxPayRules"/>
+            <xs:enumeration value="TaxPayTypes"/>
+            <xs:enumeration value="TaxRates"/>
+            <xs:enumeration value="TradeGroupDetails"/>
+            <xs:enumeration value="TradeGroups"/>
+            <xs:enumeration value="UnchangeableOrderTypes"/>
+            <xs:enumeration value="Visits"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="GetItemBlob">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Получить BLOB</xs:documentation>
+        </xs:annotation>
+            <xs:attribute name="CMD" fixed="GetItemBlob" use="required"/>
+            <xs:attribute name="RefName" type="refName" use="required">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Название коллекции</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="RefItemIdent" type="xs:integer" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Идентификатор элемента (если надо запросить один элемент), если задан, то атрибуты тэга RK7Reference не пишутся, маска (см. PropMask) задаётся для свойств элемента (а не коллекции!)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="RefItemGUID" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Идентификатор элемента (если надо запросить один элемент), если задан, то атрибуты тэга RK7Reference не пишутся, маска (см. PropMask) задаётся для свойств элемента (а не коллекции!)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="RefBlobName" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Имя BLOB (поля), если не задано - берётся первое</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="EncodeBase64" type="xs:boolean" default="1" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Нужно ли кодировать Base64</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="UnpackedBlob" type="xs:boolean" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Нужно ли распаковать LZ</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+	</xs:complexType>
+<xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Выполнение запроса AnyInfo на сервере FarCards</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="RK7CMD" type="GetItemBlob"/>
+                <xs:sequence>
+                   <xs:element name="RK7Command" type="GetItemBlob" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:sequence>
+                   <xs:element name="RK7Command2" type="GetItemBlob" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: ValidateOrder</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="Error" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element name="FaultyTag">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Сбойный тэг</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:any processContents="lax" minOccurs="1"
+                                                  maxOccurs="1">
+                                                  <xs:annotation>
+                                                  <xs:documentation xml:lang="ru">xml тэг, породивший
+                                                            ошибку</xs:documentation>
+                                                  </xs:annotation>
+                                                </xs:any>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:all>
+                                <xs:attribute name="RK7ErrorN" type="xs:positiveInteger"
+                                    use="required">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Код ошибки RK7</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="ErrorText" type="xs:normalizedString"
+                                    use="required">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Текст ошибки</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Session" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                                <xs:attribute name="sessionID" type="xs:positiveInteger"
+                                    use="required">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">ID пакета</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

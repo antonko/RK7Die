@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation=".\common.xsd"/>
+
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Касса] Выполнить операцию с ожиданием завершения</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:attribute name="CMD" fixed="PerformMessage"/>
+                        <xs:attribute name="message" type="xs:positiveInteger" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Сообщение </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="wparam" type="xs:positiveInteger">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Параметр wParam сообщения</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="lparam" type="xs:positiveInteger">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Параметр lParam сообщения</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="RK7CMD">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">GetRefList: Получить список имен коллекций</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="CMD" fixed="GetRefList" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

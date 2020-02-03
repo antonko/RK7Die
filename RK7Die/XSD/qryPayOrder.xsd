@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="poPaymentItem">
+        <xs:complexContent>
+            <xs:extension base="payItem">
+                <xs:sequence>
+                    <xs:element name="TipCharge" type="refItem" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Наценка в чаевые</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TerminalMaket" type="refItem" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Представление документа для
+                                        терминала авторизации</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="tipAmount" type="xs:positiveInteger">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Сумма чаевых (в копейках)</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="poPrintCheckItem">
+        <xs:sequence>
+            <xs:element name="Payment" type="poPaymentItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Платежи чека</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="line_guid" type="xs:normalizedString" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="seat" type="xs:nonNegativeInteger" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер места</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Касса,Кассовый сервер] Оплата заказа/чека</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Order" type="orderElement" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Station" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Cashier" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="ReceiptMaket" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Представление документа для
+                                        чека</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="InvoiceMaket" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Представление документа для
+                                        счет-фактуры</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="Payment" type="poPaymentItem">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Общий платеж. Разделяется между всеми чеками заказа</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="PrintCheck" type="poPrintCheckItem">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Чек с платежами. Идентифицируется seat или line_guid</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:choice>
+                        </xs:sequence>
+                        <xs:attribute name="CMD" fixed="PayOrder"/>
+                        <xs:attribute name="calcBySeats" type="xs:boolean">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">true - рассчет по местам, false -
+                                    общий чек</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="seat" type="xs:integer">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Номер посадочного
+                                    места</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

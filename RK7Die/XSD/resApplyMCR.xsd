@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="ParseItem">
+        <xs:all>
+            <xs:element name="MCR" type="resRefItem">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">MCR алгоритм</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Object" type="resRefItem" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Объект</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="cardCode" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Код карты</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="scope">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Область</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Currency"/>
+                    <xs:enumeration value="Employee"/>
+                    <xs:enumeration value="Discount"/>
+                    <xs:enumeration value="Entrance card"/>
+                    <xs:enumeration value="Function Key"/>
+                    <xs:enumeration value="Interface"/>
+                    <xs:enumeration value="Menu Item"/>
+                    <xs:enumeration value="Menu Item Barcode"/>
+                    <xs:enumeration value="Dish Control"/>
+                    <xs:enumeration value="Order Type"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="Processed" type="xs:boolean">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Результат обработки алгоритма (1 - обработан, 0 - не обработан)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: ApplyMCR</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Список сработавших при выполнении запроса mcr-алгоритмов</xs:documentation>
+                        </xs:annotation>
+                        <xs:element name="Item" type="ParseItem" minOccurs="0" maxOccurs="unbounded"
+                        />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

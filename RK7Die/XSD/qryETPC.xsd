@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="RK7CMD">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-query to ETPC</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Row" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="index" type="xs:normalizedString" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Unique row identifier</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="itemCode" type="xs:normalizedString" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Code of the item</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="itemName" type="xs:normalizedString" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Name of the item</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="groupCode" type="xs:normalizedString" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Group code</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="ignore" type="xs:boolean" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Exclude this item from discount calculation, the line won't have any discounts
+                                    applied</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="pricePerUnitDto" type="xs:nonNegativeInteger"
+                            use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Price of the unit in copeck (price * 100)</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="quantity" type="xs:nonNegativeInteger" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Quantity (Quantity * 1000)</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="cashAmountDto" type="xs:nonNegativeInteger"
+                            use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Price of this item line in copeck (amount*100)</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

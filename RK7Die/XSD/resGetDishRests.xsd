@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ GetDishRests</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="DishRest" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="id" type="xs:nonNegativeInteger">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Идентификатор блюда</xs:documentation>
+                                    </xs:annotation>                                            
+                                </xs:attribute>
+                                <xs:attribute name="code" type="xs:nonNegativeInteger">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Код блюда</xs:documentation>
+                                    </xs:annotation>                                            
+                                </xs:attribute>
+                                <xs:attribute name="name" type="xs:normalizedString">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Название блюда</xs:documentation>
+                                    </xs:annotation>                                            
+                                </xs:attribute>
+                                <xs:attribute name="quantity" type="xs:nonNegativeInteger">
+                                            <xs:annotation>
+                                                <xs:documentation xml:lang="ru">Остаток блюда (в
+                                                  тысячных долях)</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:attribute>
+                                <xs:attribute name="prohibited" type="xs:boolean">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Флаг - запрещена продажа блюда</xs:documentation>
+                                    </xs:annotation>                                            
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                        
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

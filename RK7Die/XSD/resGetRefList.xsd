@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:simpleType name="refName">
+        <xs:restriction base="xs:normalizedString">
+            <xs:enumeration value="AVAILABILITYSCHEDULES"/>
+            <xs:enumeration value="AWARDSPENALTIESGROUPS"/>
+            <xs:enumeration value="AWARDSPENALTIESTYPES"/>
+            <xs:enumeration value="BONUSTYPES"/>
+            <xs:enumeration value="BRIGADES"/>
+            <xs:enumeration value="BUSINESSPERIODS"/>
+            <xs:enumeration value="CASHES"/>
+            <xs:enumeration value="CASHGROUPS"/>
+            <xs:enumeration value="CASHREPORTDETAILS"/>
+            <xs:enumeration value="CATEGLIST"/>
+            <xs:enumeration value="CHANGEABLEORDERTYPES"/>
+            <xs:enumeration value="CHECKTABLES"/>
+            <xs:enumeration value="CLASSIFICATORGROUPS"/>
+            <xs:enumeration value="CLASSINFOGROUPS"/>
+            <xs:enumeration value="CLASSINFOS"/>
+            <xs:enumeration value="COLORMAPPINGS"/>
+            <xs:enumeration value="COLORSCHEMES"/>
+            <xs:enumeration value="CONSUMATORS"/>
+            <xs:enumeration value="CONSUMTYPES"/>
+            <xs:enumeration value="CURRENCIES"/>
+            <xs:enumeration value="CURRENCYFACEVALUES"/>
+            <xs:enumeration value="CURRENCYTYPES"/>
+            <xs:enumeration value="DEFAULTERTYPES"/>
+            <xs:enumeration value="DELIVERYZONES"/>
+            <xs:enumeration value="DEPOSITCOLLECTREASONS"/>
+            <xs:enumeration value="DEVICEDATALOOKUPITEMS"/>
+            <xs:enumeration value="DEVICES"/>
+            <xs:enumeration value="DISCOUNTCOMPOSITIONS"/>
+            <xs:enumeration value="DISCOUNTDETAILS"/>
+            <xs:enumeration value="DISCOUNTS"/>
+            <xs:enumeration value="DISCOUNTTYPES"/>
+            <xs:enumeration value="DISPLAYRESOLUTIONS"/>
+            <xs:enumeration value="DOCUMENTMAKETSCHEMELINKS"/>
+            <xs:enumeration value="DOCUMENTS"/>
+            <xs:enumeration value="DOSINGDEVICES"/>
+            <xs:enumeration value="EMPLOYEEGROUPDETAILS"/>
+            <xs:enumeration value="EMPLOYEEGROUPS"/>
+            <xs:enumeration value="EMPLOYEES"/>
+            <xs:enumeration value="ENTRANCECARDTYPES"/>
+            <xs:enumeration value="ENUMSTYPESDATAS"/>
+            <xs:enumeration value="ENUMSTYPESINFOS"/>
+            <xs:enumeration value="FILTERS"/>
+            <xs:enumeration value="FISCDEVZRKEYS"/>
+            <xs:enumeration value="FORMDETAILS"/>
+            <xs:enumeration value="FORMS"/>
+            <xs:enumeration value="FORMSCHEMECHILDS"/>
+            <xs:enumeration value="FORMSCHEMES"/>
+            <xs:enumeration value="FUNCTIONKEYGROUPS"/>
+            <xs:enumeration value="FUNCTIONKEYS"/>
+            <xs:enumeration value="FUNDSACCOUNTINGPLACES"/>
+            <xs:enumeration value="GENERATEDPROPDATAS"/>
+            <xs:enumeration value="GENERATEDPROPGROUPS"/>
+            <xs:enumeration value="GENERATEDPROPTYPES"/>
+            <xs:enumeration value="GUESTTYPES"/>
+            <xs:enumeration value="HALLPLANS"/>
+            <xs:enumeration value="IMAGELIST"/>
+            <xs:enumeration value="IMAGENODES"/>
+            <xs:enumeration value="INPDEVTYPES"/>
+            <xs:enumeration value="KBDLAYOUTS"/>
+            <xs:enumeration value="KBDTYPES"/>
+            <xs:enumeration value="KURSES"/>
+            <xs:enumeration value="LINKEDSYSTEMSCONFS"/>
+            <xs:enumeration value="LINKEDSYSTEMSTYPES"/>
+            <xs:enumeration value="MAKETS"/>
+            <xs:enumeration value="MAKETSCHEMEDETAILS"/>
+            <xs:enumeration value="MAKETSCHEMES"/>
+            <xs:enumeration value="MCRALGORITHMS"/>
+            <xs:enumeration value="MENUITEMS"/>
+            <xs:enumeration value="MODIFIERS"/>
+            <xs:enumeration value="MODIGROUPS"/>
+            <xs:enumeration value="MODISCHEMEDETAILS"/>
+            <xs:enumeration value="MODISCHEMES"/>
+            <xs:enumeration value="OLAPCUBES"/>
+            <xs:enumeration value="OLAPCUBESCHEMES"/>
+            <xs:enumeration value="OPERATIONCLASSES"/>
+            <xs:enumeration value="OPERATIONS"/>
+            <xs:enumeration value="ORDERVOIDS"/>
+            <xs:enumeration value="PARAMETEREXCEPTIONS"/>
+            <xs:enumeration value="PARAMETERHIERARHIES"/>
+            <xs:enumeration value="PARAMETERS"/>
+            <xs:enumeration value="PERIODDETAILS"/>
+            <xs:enumeration value="PERIODGROUPS"/>
+            <xs:enumeration value="PERIODS"/>
+            <xs:enumeration value="PRICECONSTANTS"/>
+            <xs:enumeration value="PRICECONSTANTTYPES"/>
+            <xs:enumeration value="PRICES"/>
+            <xs:enumeration value="PRICETYPES"/>
+            <xs:enumeration value="PRINTERPURPOSES"/>
+            <xs:enumeration value="RATECLASSES"/>
+            <xs:enumeration value="REFLINKS"/>
+            <xs:enumeration value="REPORTINGSERVERS"/>
+            <xs:enumeration value="RESTAURANTCONCEPTS"/>
+            <xs:enumeration value="RESTAURANTFRANCHISES"/>
+            <xs:enumeration value="RESTAURANTREGIONS"/>
+            <xs:enumeration value="RESTAURANTS"/>
+            <xs:enumeration value="RIGHTGROUPS"/>
+            <xs:enumeration value="RIGHTS"/>
+            <xs:enumeration value="ROLES"/>
+            <xs:enumeration value="SCRIPTS"/>
+            <xs:enumeration value="SCRIPTTYPES"/>
+            <xs:enumeration value="SELECTORDETAILS"/>
+            <xs:enumeration value="SELECTORGROUPS"/>
+            <xs:enumeration value="SELECTORHIERARHIES"/>
+            <xs:enumeration value="SELECTORS"/>
+            <xs:enumeration value="SELECTORTYPES"/>
+            <xs:enumeration value="SERVICECHECKS"/>
+            <xs:enumeration value="SERVICESCHEMES"/>
+            <xs:enumeration value="SERVINGPOSITIONS"/>
+            <xs:enumeration value="TABLEATTRIBUTES"/>
+            <xs:enumeration value="TABLEGROUPS"/>
+            <xs:enumeration value="TABLES"/>
+            <xs:enumeration value="TARIFFDETAILS"/>
+            <xs:enumeration value="TARIFFICATIONTYPES"/>
+            <xs:enumeration value="TAXDISHRULES"/>
+            <xs:enumeration value="TAXDISHTYPES"/>
+            <xs:enumeration value="TAXES"/>
+            <xs:enumeration value="TAXPAYRULES"/>
+            <xs:enumeration value="TAXPAYTYPES"/>
+            <xs:enumeration value="TAXRATES"/>
+            <xs:enumeration value="TRADEGROUPDETAILS"/>
+            <xs:enumeration value="TRADEGROUPS"/>
+            <xs:enumeration value="UNCHANGEABLEORDERTYPES"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="RK7Reference">
+        <xs:attribute name="RefName" type="refName">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Имя коллекции</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Count" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Количество элементов в коллекции</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="DataVersion" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер версии данных в коллекции. Версия увеличивается при каждом изменении данных в коллекции</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: GetRefList</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="RK7RefList">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="RK7Reference" type="RK7Reference" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:annotation>
+                                            <xs:documentation xml:lang="ru">Коллекция</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="Count" type="xs:positiveInteger"
+                                    use="required">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Количество записей</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

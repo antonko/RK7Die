@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="Item">
+        <xs:sequence>
+            <xs:element name="Order" type="orderElement" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CloseStation" type="resRefItem" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Станция, с которой чек был
+                        распечатан</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PrintStation" type="resRefItem" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Станция, на которой чек был
+                        распечатан</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Cashier" type="resRefItem" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DeleteManager" type="resRefItem" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Менеджер, удаливший чек</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DeleteReason" type="resRefItem" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Причина удаления чека</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="line_guid" type="xs:normalizedString" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="checknum" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="sum" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Сумма чека (в копейках)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="state" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Статус чек (4 - пречек, 6 - чек, 7 - удален)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="seat" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер посадочного места</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="printtime" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">ДатаВремя печати чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="starttime" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">ДатаВремя начала рассчета чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="billtime" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">ДатаВремя печати пречека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="deletetime" type="xs:dateTime">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">ДатаВремя удаления чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ GetReceiptList</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="ReceiptsList">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Receipt" type="Item" minOccurs="0" maxOccurs="unbounded"/>                                    
+                                </xs:sequence>
+                                <xs:attribute name="count" type="xs:integer">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Количество чеков</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="lastversion" type="xs:integer">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">Версия таблицы чеков</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>                        
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый сервер] Внести/изъять деньги из
+                ящика</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Cashier" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Кассир (работник выполняющий внесение/изъятие)</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Currency" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Валюта</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Reason" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Причина внесения/выдачи
+                                        денег</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Drawer" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Кассовый ящик. Если не задан, то
+                                        ящик определяется по кассиру</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Maket" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Макет для печати документа о
+                                        внесении/выдачи</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="CMD" fixed="ChangeDrawerBalance"/>
+                        <xs:attribute name="amount" type="xs:long">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Сумма (в копейках). Если больше нуля, то внесение, иначе изъятие денег</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

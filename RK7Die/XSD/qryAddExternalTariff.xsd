@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    
+    <xs:include schemaLocation="common.xsd"/>
+    
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Добавить данные по внешней тарификации</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Manager" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Менеджер</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Device" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Логическое устройство-тарификатор</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="lane" type="xs:positiveInteger" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Номер дорожки. Внимание, стол ищется по дорожке только в рамках тарификационного устройства</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="extnumber" type="xs:normalizedString" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Номер чека (внешний номер)</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="amount" type="xs:int" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Сумма тарификации (в копейках)</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="starttime" type="xs:dateTime" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">ДатаВремя начала тарификации</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="endtime" type="xs:dateTime" use="optional">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">ДатаВремя окончания тарификации</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="CMD" fixed="AddExternalTariff"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>

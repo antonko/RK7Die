@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!--  xsi:noNamespaceSchemaLocation="XMLSchema.xsd" -->
+
+	<xs:include schemaLocation="common.xsd"/>
+
+        <xs:complexType name="Devices">
+			<xs:sequence>
+				<xs:element name="Device" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DeviceState" minOccurs="0" maxOccurs="1">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PaperStatus" minOccurs="0" maxOccurs="1">
+										<xs:complexType>
+											<xs:attribute name="PaperOut" use="optional" type="xs:boolean"/>
+											<xs:attribute name="PaperLow" use="optional" type="xs:boolean"/>
+											<xs:attribute name="DoorOpen" use="optional" type="xs:boolean"/>
+											<xs:attribute name="PaperOther" use="optional" type="xs:boolean"/>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="LogicStatus" minOccurs="0" maxOccurs="1">
+										<xs:complexType>
+											<xs:attribute name="Fisc24Out" use="optional" type="xs:boolean"/>
+											<xs:attribute name="EKLZNearEnd" use="optional" type="xs:boolean"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+						<xs:attribute name="Ident" use="required" type="xs:positiveInteger"/>
+						<xs:attribute name="code" use="required" type="xs:positiveInteger"/>
+						<xs:attribute name="name" use="required" type="xs:string"/>
+						<xs:attribute name="guid" type="xs:normalizedString"/>
+						<xs:attribute name="loaded" type="xs:boolean"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+        </xs:complexType>
+    
+        <xs:complexType name="DevicesRes">
+		<xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+	                    <xs:element name="Devices" type="Devices" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:extension>
+		</xs:complexContent>
+        </xs:complexType>
+    
+	<xs:element name="RK7QueryResult" type="DevicesRes"/>
+<!--            <xs:element name="RK7QueryResult">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CommandResult" type="DevicesResRes" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+                </xs:element>
+-->				
+</xs:schema>

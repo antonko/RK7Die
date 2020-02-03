@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation=".\common.xsd"/>
+
+    <xs:simpleType name="filterType">
+        <xs:restriction base="xs:normalizedString">
+            <xs:enumeration value="BonusTypes"/>
+            <xs:enumeration value="Order Category"/>
+            <xs:enumeration value="Trade Group"/>
+            <xs:enumeration value="Service scheme"/>
+            <xs:enumeration value="Cash Doser"/>
+            <xs:enumeration value="Keyboard layout"/>
+            <xs:enumeration value="Selector group"/>
+            <xs:enumeration value="Cash Drawer"/>
+            <xs:enumeration value="Maket scheme"/>
+            <xs:enumeration value="Business Period"/>
+            <xs:enumeration value="Discount"/>
+            <xs:enumeration value="Parameter"/>
+            <xs:enumeration value="Form Scheme"/>
+            <xs:enumeration value="Color Scheme"/>
+            <xs:enumeration value="Price Type"/>
+            <xs:enumeration value="Course"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Касса, Кассовый сервер] Получить значение
+                использования</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="Order" type="orderElement" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Table" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Стол</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Station" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Waiter" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Официант</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="GuestType" type="refItem" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Тип гостей</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                        <xs:attribute name="CMD" fixed="GetUsageValue"/>
+                        <xs:attribute name="name" type="filterType" use="required">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Имя использования</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="param" type="xs:integer">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Параметр (для некоторых типов
+                                    использований)</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="dateTime" type="xs:dateTime">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">ДатаВремя</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

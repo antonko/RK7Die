@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!--  xsi:noNamespaceSchemaLocation="XMLSchema.xsd" -->
+
+	<xs:include schemaLocation="common.xsd"/>
+
+        <xs:complexType name="DeviceMenuGroup">
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:sequence>
+						<xs:element name="DeviceMenu" type="DeviceMenuGroup" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:element name="DIALOGINFO" minOccurs="0" maxOccurs="1">
+						<xs:complexType>
+							<xs:attribute name="dialogType" use="required">
+								<xs:simpleType>
+									<xs:restriction base="xs:normalizedString">
+										<xs:enumeration value="DateInterval"/>
+										<xs:enumeration value="NumberInterval"/>
+										<xs:enumeration value="OneDate"/>
+										<xs:enumeration value="OneNumber"/>
+									</xs:restriction>
+								</xs:simpleType>							
+							</xs:attribute>
+							<xs:attribute name="caption" type="xs:string" use="optional"/>
+						</xs:complexType>
+                    </xs:element>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="caption" type="xs:string" use="required"/>
+			<xs:attribute name="operationId" type="xs:string"/>
+        </xs:complexType>
+    
+        <xs:complexType name="ListDeviceMenuRes">
+			<xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+	                    <xs:element name="DeviceMenu" type="DeviceMenuGroup" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:extension>
+			</xs:complexContent>
+        </xs:complexType>
+    
+	<xs:element name="RK7QueryResult" type="ListDeviceMenuRes"/>
+<!--            <xs:element name="RK7QueryResult">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CommandResult" type="LogicalDevicesRes" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+                </xs:element>
+-->				
+</xs:schema>

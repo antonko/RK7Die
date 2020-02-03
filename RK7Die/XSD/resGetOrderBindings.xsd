@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="DiscPartType">
+        <xs:attribute name="disc_line_guid" type="xs:string">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID скидки</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="amount" type="xs:long">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Сумма скидки в базовой валюте (в
+                    копейках)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="bonussum" type="xs:long">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Сумма бонуса в базовой валюте (в
+                    копейках)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="TaxPartType">
+        <xs:attribute name="id" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Идентификатор налога</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="code" type="xs:int">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Код налога</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Имя налога</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="amount" type="xs:long">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Сумма налога (в копейках)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="rate" type="xs:long">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Ставка налога (в сотых долях)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="BindingType">
+        <xs:sequence>
+            <xs:element name="DiscPart" type="DiscPartType" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Элемент скидки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TaxPart" type="TaxPartType" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Элемент налога</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="line_guid" type="xs:string">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID блюда или нераспределяемой
+                    наценки</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="amount" type="xs:long">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Сумма в базовой валюте (в
+                    копейках)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="quantity" type="xs:long">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Количество блюда (в тысячных
+                    долях)</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="CurrLineType">
+        <xs:sequence>
+            <xs:element name="Pay" type="payItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Оплата</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Prepay" type="prepayItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Предоплата</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Binding" type="BindingType" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Биндинг</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PrintCheckType">
+        <xs:sequence>
+            <xs:element name="CurrLine" type="CurrLineType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Список платежей чека</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="line_guid" type="xs:string">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="state" type="CheckItemState">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Статус чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="CheckNum" type="xs:nonNegativeInteger">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер чека</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="OrderItem">
+        <xs:sequence>
+            <xs:element name="PrintCheck" type="PrintCheckType" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Список чеков</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="guid" type="xs:normalizedString"/>
+        <xs:attribute name="visit" type="xs:positiveInteger"/>
+        <xs:attribute name="orderIdent" type="xs:positiveInteger"/>
+    </xs:complexType>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: GetOrderBindings</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:all>
+                        <xs:element name="Order" type="OrderItem"/>
+                    </xs:all>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

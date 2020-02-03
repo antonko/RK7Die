@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="qryMenuOperation.xsd"/>
+
+  <xs:complexType name="FarCardsAnyInfoRaw">
+                        <xs:sequence>
+                            <xs:element name="Interface" type="refItem" minOccurs="1" maxOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Логический интерфейс, по которому бедет найден сервер Farcards, на котором надо будет выполнить AnyInfo</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="RawData" minOccurs="1" maxOccurs="1">
+                                        <xs:complexType>
+                                            <xs:simpleContent>
+                                                <xs:extension base="xs:base64Binary"/>
+                                            </xs:simpleContent>
+                                        </xs:complexType>    
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="CMD" fixed="FarCardsAnyInfoRaw"/>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Выполнение запроса AnyInfo на сервере FarCards</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="RK7CMD" type="FarCardsAnyInfoRaw"/>
+                <xs:sequence>
+                   <xs:element name="RK7Command" type="FarCardsAnyInfoRaw" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:sequence>
+                   <xs:element name="RK7Command2" type="FarCardsAnyInfoRaw" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

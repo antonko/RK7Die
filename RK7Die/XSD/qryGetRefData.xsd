@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="refName">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AvailabilitySchedules"/>
+            <xs:enumeration value="AwardsPenaltiesGroups"/>
+            <xs:enumeration value="AwardsPenaltiesTypes"/>
+            <xs:enumeration value="BonusTypes"/>
+            <xs:enumeration value="Brigades"/>
+            <xs:enumeration value="Cashes"/>
+            <xs:enumeration value="CashGroups"/>
+            <xs:enumeration value="CashReportDetails"/>
+            <xs:enumeration value="CashServDataStatuses"/>
+            <xs:enumeration value="CategList"/>
+            <xs:enumeration value="ChangeableOrderTypes"/>
+            <xs:enumeration value="CheckTables"/>
+            <xs:enumeration value="ClassificatorGroups"/>
+            <xs:enumeration value="ClassInfoGroups"/>
+            <xs:enumeration value="ClassInfos"/>
+            <xs:enumeration value="ColorMappings"/>
+            <xs:enumeration value="ColorSchemes"/>
+            <xs:enumeration value="Consumators"/>
+            <xs:enumeration value="ConsumTypes"/>
+            <xs:enumeration value="Currencies"/>
+            <xs:enumeration value="CurrencyFaceValues"/>
+            <xs:enumeration value="CurrencyTypes"/>
+            <xs:enumeration value="DefaulterTypes"/>
+            <xs:enumeration value="DepositCollectReasons"/>
+            <xs:enumeration value="DeviceDataLookUpItems"/>
+            <xs:enumeration value="Devices"/>
+            <xs:enumeration value="DiscountCompositions"/>
+            <xs:enumeration value="DiscountDetails"/>
+            <xs:enumeration value="Discounts"/>
+            <xs:enumeration value="DiscountTypes"/>
+            <xs:enumeration value="DisplayResolutions"/>
+            <xs:enumeration value="DocumentMaketSchemeLinks"/>
+            <xs:enumeration value="Documents"/>
+            <xs:enumeration value="DosingDevices"/>
+            <xs:enumeration value="EmployeeGroupDetails"/>
+            <xs:enumeration value="EmployeeGroups"/>
+            <xs:enumeration value="Employees"/>
+            <xs:enumeration value="EntranceCardTypes"/>
+            <xs:enumeration value="EnumsTypesDatas"/>
+            <xs:enumeration value="EnumsTypesInfos"/>
+            <xs:enumeration value="Filters"/>
+            <xs:enumeration value="FiscDevParams"/>
+            <xs:enumeration value="FormDetails"/>
+            <xs:enumeration value="Forms"/>
+            <xs:enumeration value="FormSchemeChilds"/>
+            <xs:enumeration value="FormSchemes"/>
+            <xs:enumeration value="FunctionKeyGroups"/>
+            <xs:enumeration value="FunctionKeys"/>
+            <xs:enumeration value="FundsAccountingPlaces"/>
+            <xs:enumeration value="GeneratedPropDatas"/>
+            <xs:enumeration value="GeneratedPropGroups"/>
+            <xs:enumeration value="GeneratedPropTypes"/>
+            <xs:enumeration value="GuestTypes"/>
+            <xs:enumeration value="HallPlans"/>
+            <xs:enumeration value="ImageList"/>
+            <xs:enumeration value="ImageNodes"/>
+            <xs:enumeration value="InpDevTypes"/>
+            <xs:enumeration value="KBDLayouts"/>
+            <xs:enumeration value="KBDTypes"/>
+            <xs:enumeration value="Kurses"/>
+            <xs:enumeration value="LinkedSystemConfigs"/>
+            <xs:enumeration value="LinkedSystemTypes"/>
+            <xs:enumeration value="Makets"/>
+            <xs:enumeration value="MaketSchemeDetails"/>
+            <xs:enumeration value="MaketSchemes"/>
+            <xs:enumeration value="McrAlgorithms"/>
+            <xs:enumeration value="MenuItems"/>
+            <xs:enumeration value="Modifiers"/>
+            <xs:enumeration value="ModiGroups"/>
+            <xs:enumeration value="ModiSchemeDetails"/>
+            <xs:enumeration value="ModiSchemes"/>
+            <xs:enumeration value="OlapCubes"/>
+            <xs:enumeration value="OlapCubeSchemes"/>
+            <xs:enumeration value="OperationClasses"/>
+            <xs:enumeration value="Operations"/>
+            <xs:enumeration value="OrderVoids"/>
+            <xs:enumeration value="ParameterExceptions"/>
+            <xs:enumeration value="ParameterHierarhies"/>
+            <xs:enumeration value="Parameters"/>
+            <xs:enumeration value="PeriodDetails"/>
+            <xs:enumeration value="Periods"/>
+            <xs:enumeration value="PriceConstants"/>
+            <xs:enumeration value="PriceConstantTypes"/>
+            <xs:enumeration value="Prices"/>
+            <xs:enumeration value="PriceTypes"/>
+            <xs:enumeration value="PrinterPurposes"/>
+            <xs:enumeration value="RateClasses"/>
+            <xs:enumeration value="RefLinks"/>
+            <xs:enumeration value="ReportingServers"/>
+            <xs:enumeration value="RestaurantConcepts"/>
+            <xs:enumeration value="RestaurantRegions"/>
+            <xs:enumeration value="Restaurants"/>
+            <xs:enumeration value="RightGroups"/>
+            <xs:enumeration value="Rights"/>
+            <xs:enumeration value="Roles"/>
+            <xs:enumeration value="Scripts"/>
+            <xs:enumeration value="ScriptTypes"/>
+            <xs:enumeration value="SelectorDetails"/>
+            <xs:enumeration value="SelectorGroups"/>
+            <xs:enumeration value="SelectorHierarhies"/>
+            <xs:enumeration value="Selectors"/>
+            <xs:enumeration value="SelectorTypes"/>
+            <xs:enumeration value="ServiceChecks"/>
+            <xs:enumeration value="ServiceSchemes"/>
+            <xs:enumeration value="ServingPositions"/>
+            <xs:enumeration value="TableAttributes"/>
+            <xs:enumeration value="TableGroups"/>
+            <xs:enumeration value="Tables"/>
+            <xs:enumeration value="TariffDetails"/>
+            <xs:enumeration value="TarifficationTypes"/>
+            <xs:enumeration value="TaskSetters"/>
+            <xs:enumeration value="TaxDishRules"/>
+            <xs:enumeration value="TaxDishTypes"/>
+            <xs:enumeration value="Taxes"/>
+            <xs:enumeration value="TaxPayRules"/>
+            <xs:enumeration value="TaxPayTypes"/>
+            <xs:enumeration value="TaxRates"/>
+            <xs:enumeration value="TradeGroupDetails"/>
+            <xs:enumeration value="TradeGroups"/>
+            <xs:enumeration value="UnchangeableOrderTypes"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WithChildItemType">
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Без дочерних элементов</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Только иерархия внутри справочника в разделе RIChildItems коллекции</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Дети в разделе items только из других справочников</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Иерархия внутри справочника и дети из других справочников в разделе RIChildItems коллекции. Добавляется псевдосвойство RIChildItems, может использоваться в маске. Тэги детей совпадают с именами классов</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="GetRefDataCommand">
+            <xs:all>
+                <xs:element name="PROPFILTERS" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Список фильтров</xs:documentation>
+                    </xs:annotation>
+		    <xs:complexType>
+			<xs:sequence>
+			    <xs:element name="PROPFILTER" minOccurs="1" maxOccurs="unbounded">
+				<xs:complexType>
+				<xs:attribute name="Name" type="xs:normalizedString"  use="required">
+				    <xs:annotation>
+					<xs:documentation xml:lang="ru">Имя свойства для фильтрации. Небходимо если нет подфильтров</xs:documentation>
+				    </xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Value" type="xs:normalizedString" use="required">
+				    <xs:annotation>
+					<xs:documentation xml:lang="ru">Значение свойства для фильтрации. Небходимо если нет подфильтров и Substring</xs:documentation>
+				    </xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Substring" type="xs:normalizedString" use="required">
+				    <xs:annotation>
+					<xs:documentation xml:lang="ru">Часть значения свойства для фильтрации. Необходимо если нет подфильтров и Value</xs:documentation>
+				    </xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Masked" type="xs:integer" use="optional">
+				    <xs:annotation>
+					<xs:documentation xml:lang="ru">Использовать RegExp выражения для фильтрации. Используется с Value. Принимает значеня 0 и 1, по умолчанию 0</xs:documentation>
+				    </xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Kind" type="xs:string" use="optional">
+				    <xs:annotation>
+					<xs:documentation xml:lang="ru">Вид связи подфильтров. Используется если есть подфильтры. Принимает значения AND и OR, по умолчанию OR</xs:documentation>
+				    </xs:annotation>
+				</xs:attribute>
+				</xs:complexType>
+			    </xs:element>
+			</xs:sequence>
+		    </xs:complexType>
+                </xs:element>
+            </xs:all>
+            <xs:attribute name="CMD" fixed="GetRefData" use="required"/>
+            <xs:attribute name="RefName" type="refName" use="required">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Название коллекции</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="RefItemIdent" type="xs:integer" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Идентификатор элемента (если надо запросить один элемент), если задан, то атрибуты тэга RK7Reference не пишутся, маска (см. PropMask) задаётся для свойств элемента (а не коллекции!)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="RefItemGUID" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Идентификатор элемента (если надо запросить один элемент), если задан, то атрибуты тэга RK7Reference не пишутся, маска (см. PropMask) задаётся для свойств элемента (а не коллекции!)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="PropMask" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Маска свойств. При заполненном RefItemIdent или RefItemGUID относится к элементу, иначе к коллекции
+Можно запросить ограниченный список свойств. * - все свойства, пусто - ничего. Для вложенных объектов необходимо указывать полный путь к свойству, либо использовать круглые скобки для общего префикса - свойства типа объект. Для перечисления свойств элементов коллекции нужно использовать свойство "items.(...)" или "{...}". В случае использования фигурных скобок свойства самой коллекции необходимо перечислить до свойств элементов. 
+Например: 
+* - всё, может быть подмаской
+{...} - то же, что Items.(...) - элементы коллекции, например "{Name}" - только имена элементов
+RIChildItems.(...) - дочерние элементы, используется при выставленном WithChildItems=1
+RIChildItems.Type() - только дети заданного типа Type. Например, "RIChildItems.TEmployee(Ident,Name)"
+! - без этого свойства, например "RIChildItems.(!AltName)" - дети со всеми свойствами кроме AltName,
+: - для указания конкретного типа (доменного класса) в списках свойств, например, для указания некоторых свойств только для комбо блюд: "TRK7MenuItemCombo:ComboDiscount"  
+					</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="WithMacroProp" type="xs:boolean" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Нужно ли добавлять генерируемые
+                        свойства</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="WithBlobsData" type="xs:boolean" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">Нужно ли добавлять BLOB поля</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="MacroPropTags" type="xs:boolean" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">если 1, то добавлять генерируемые свойства подтэгами PropXXX, где XXX общая часть имени подсвойства (до ^)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="WithChildItems" type="WithChildItemType" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">0 - без дочерних элементов, 
+1 - только иерархия внутри справочника в разделе RIChildItems коллекции, 
+2 - дети в разделе items только из других справочников, 
+3 - и иерархия внутри справочника и дети из других справочников в разделе RIChildItems коллекции. Добавляется псевдосвойство RIChildItems, может использоваться в маске. Тэги детей совпадают с именами классов
+					</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="IgnoreEnums" type="xs:boolean" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">если 0 - перечисляемые типы как строки, 
+1 - перечисляемые типы и их множества как числа</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="IgnoreDefaults" type="xs:boolean" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">если 1 - не писать атрибуты, если значения
+                        свойств "по умолчанию"</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="OnlyActive" type="xs:boolean" default="0" use="optional">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">если 1 - то будут возвращены только активные записи, иначе все записи"</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+  <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Получить коллекцию</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="RK7CMD" type="GetRefDataCommand"/>
+                <xs:sequence>
+                   <xs:element name="RK7Command" type="GetRefDataCommand" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:sequence>
+                   <xs:element name="RK7Command2" type="GetRefDataCommand" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

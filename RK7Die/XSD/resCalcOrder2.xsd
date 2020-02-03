@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="Payments">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="Pay">
+                <xs:complexType>
+                    <xs:attributeGroup ref="refItemAttributes"/>
+                    <xs:attribute name="name" type="xs:normalizedString"/>
+                    <xs:attribute name="amount" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Сумма оплаты (в
+                                копейках)</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: CalcOrder2</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:sequence>
+                        <xs:element name="Order" type="resOrderItem">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Payments" type="Payments"></xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

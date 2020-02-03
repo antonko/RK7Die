@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ LoginOnStation</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:all>
+                        <xs:element name="Drawer" type="resRefItem" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Ящик, на который зарегистрирован работник</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="OpRights" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Список прав на операции</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="oper" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="id" type="xs:positiveInteger">
+                                                <xs:annotation>
+                                                  <xs:documentation xml:lang="ru">ID операции</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="ObjRights" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Список прав на объекты</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="right" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="id" type="xs:positiveInteger">
+                                                <xs:annotation>
+                                                  <xs:documentation xml:lang="ru">ID права</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Tables" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Список доступных столов</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="table" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attribute name="id" type="xs:positiveInteger">
+                                                <xs:annotation>
+                                                  <xs:documentation xml:lang="ru">ID стола</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Orders" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="ru">Список доступных столов</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Order" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:attributeGroup ref="orderInfo"/>
+                                            <xs:attribute name="own_order" type="xs:boolean">
+                                                <xs:annotation>
+                                                    <xs:documentation xml:lang="ru">Флаг "Свой заказ"</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:attribute>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

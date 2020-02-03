@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:redefine schemaLocation="common.xsd">
+        <xs:complexType name="refItem">
+            <xs:complexContent>
+                <xs:extension base="refItem">
+                    <xs:attribute name="name" type="xs:normalizedString" use="required">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Наименование элемента на основном языке
+                                языке</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+
+        <xs:complexType name="dishAncestor">
+            <xs:complexContent>
+                <xs:extension base="dishAncestor">
+                    <xs:attribute name="paidAmount" type="xs:nonNegativeInteger" use="optional"
+                        default="0">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">Оплаченная часть суммы блюда (в
+                                копейках)</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:redefine>
+
+    <xs:element name="RK7QueryResult">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">xml-ответ: GetOrder</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RK7QueryResult">
+                    <xs:all>
+                        <xs:element name="Order" type="resOrderItem"/>
+                    </xs:all>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

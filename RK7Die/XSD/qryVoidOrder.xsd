@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation=".\common.xsd"/>
+
+    <xs:element name="RK7CMD">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый сервер] Удалить заказ</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Order" type="orderElement" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Station" type="refItem" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Станция</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Manager" type="refItem" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Менеджер, удаляющий заказ</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DeleteReason" type="refItem" minOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Причина удаления</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:all>
+            <xs:attribute name="CMD" fixed="VoidOrder"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

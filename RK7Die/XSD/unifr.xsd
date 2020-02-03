@@ -1,0 +1,145 @@
+﻿<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:complexType name="UnfiscalAttributes">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">Основной тэг нефискальной печати</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="Slip" type="xs:boolean" use="optional" default="0">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Печать на бланке</xs:documentation>
+                    </xs:annotation>
+		</xs:attribute>
+        <xs:attribute name="CutAfter" type="xs:boolean" use="optional" default="0">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="ru">Надо ли отрезать (завершить оформление документа) в конце</xs:documentation>
+                    </xs:annotation>
+		</xs:attribute>
+        <xs:anyAttribute processContents="skip"/>
+    </xs:complexType>
+	
+    <xs:attributeGroup name="uniTextAttributes">        
+        <xs:attribute name="FontNum" type="xs:nonNegativeInteger" use="optional" default="0"/>
+        <xs:attribute name="Bold" type="xs:boolean" use="optional" default="0"/>
+        <xs:attribute name="BigHeight" type="xs:boolean" use="optional" default="0"/>
+        <xs:attribute name="BigWidth" type="xs:boolean" use="optional" default="0"/>
+        <xs:attribute name="Inverted" type="xs:boolean" use="optional" default="0"/>
+        <xs:attribute name="AltLang" type="xs:boolean" use="optional" default="0"/>
+        <xs:attribute name="Tapes" use="optional" default="8">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:enumeration value="0"/>
+                                    <xs:enumeration value="1"/>
+                                    <xs:enumeration value="2"/>
+                                    <xs:enumeration value="3"/>
+                                    <xs:enumeration value="4"/>
+                                    <xs:enumeration value="5"/>
+                                    <xs:enumeration value="6"/>
+                                    <xs:enumeration value="7"/>
+                                    <xs:enumeration value="8"/>
+                                </xs:restriction>                        
+                            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:complexType name="uniTextBlock">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attributeGroup ref="uniTextAttributes"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+    <xs:complexType name="uniTextLine">
+        <xs:attributeGroup ref="uniTextAttributes"/>
+		<xs:attribute name="Text" type="xs:normalizedString" use="required"/>
+    </xs:complexType>
+	
+    <xs:complexType name="uniTextPart">
+        <xs:attributeGroup ref="uniTextAttributes"/>
+		<xs:attribute name="Text" type="xs:normalizedString" use="required"/>
+    </xs:complexType>
+
+	<xs:complexType name="uniRawBlock">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Encoding" use="required">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="No"/>
+                                    <xs:enumeration value="Base64"/>
+                                </xs:restriction>                        
+                            </xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+    <xs:complexType name="uniBarCode">
+        <xs:attribute name="Type" use="optional" default="EAN-13">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="EAN-13"/>
+                                    <xs:enumeration value="Code-39"/>
+                                </xs:restriction>                        
+                            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="TextPosition" use="optional" default="No">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="No"/>
+                                    <xs:enumeration value="Top"/>
+                                    <xs:enumeration value="Bottom"/>
+                                    <xs:enumeration value="Top&amp;Bottom"/>
+                                </xs:restriction>                        
+                            </xs:simpleType>
+        </xs:attribute>
+		<xs:attribute name="Value" type="xs:normalizedString" use="required"/>
+    </xs:complexType>
+
+	<xs:complexType name="uniBeep"/>
+    	
+    <xs:complexType name="uniDrawer">
+        <xs:attribute name="Number" use="optional" default="0">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int">
+                                    <xs:enumeration value="0"/>
+                                    <xs:enumeration value="1"/>
+                                </xs:restriction>                        
+                            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="uniLogo">
+        <xs:attribute name="Number" type="xs:int" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="uniPass">
+        <xs:attribute name="Lines" type="xs:int" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="uniWait">
+        <xs:attribute name="MSecs" type="xs:int" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="uniUnfiscal">
+        <xs:complexContent>
+            <xs:extension base="UnfiscalAttributes">
+                <xs:sequence>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="TextBlock" type="uniTextBlock"/>
+                        <xs:element name="TextPart" type="uniTextPart"/>
+                        <xs:element name="TextLine" type="uniTextLine"/>
+                        <xs:element name="RawBlock" type="uniRawBlock"/>                        
+                        <xs:element name="BarCode" type="uniBarCode"/>                        
+                        <xs:element name="Beep" type="uniBeep"/>                        
+                        <xs:element name="Drawer" type="uniDrawer"/>                        
+                        <xs:element name="Logo" type="uniLogo"/>                        
+                        <xs:element name="Pass" type="uniPass"/>                        
+                        <xs:element name="Wait" type="uniWait"/>                        
+                    </xs:choice>		
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+</xs:schema>

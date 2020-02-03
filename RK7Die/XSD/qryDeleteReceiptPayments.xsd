@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:complexType name="LineGuidItem">
+        <xs:attribute name="line_guid" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:documentation xml:lang="ru">GUID строки</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="RK7Query">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">[Кассовый сервер] Удалить оплаты в ошибочном
+                чеке</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="RK7CMD">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Order" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="Manager" type="refItem" minOccurs="1">
+                                <xs:annotation>
+                                    <xs:documentation xml:lang="ru">Менеджер</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="Pay" type="LineGuidItem">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">GUID платежа, который нужно
+                                            удалить</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="PrintCheck" type="LineGuidItem">
+                                    <xs:annotation>
+                                        <xs:documentation xml:lang="ru">GUID чека, в котором нужно
+                                            удалить оплаты</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:choice>
+                        </xs:sequence>
+                        <xs:attribute name="CMD" fixed="DeleteReceiptPayments"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
