@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
+using RK7Die.CashServer.Common;
 using RK7Die.CashServer.Query;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace RK7Die.CashServer
 
             if (_clientOptions.ClientProtocol != ClientProtocol.http)
             {
+                _logger.LogError("Protocol is not supported by this library");
                 throw new Exception("Protocol is not supported by this library");
             }
 
@@ -38,11 +40,9 @@ namespace RK7Die.CashServer
 
             _codePage = _clientOptions.Codepage;
 
-            _logger.LogWarning("Initialization RK7 CashServer client");
+            _logger.LogWarning("Initialization RK7 CashServer Client");
 
             _httpClient = InitializationHttpClient(_clientOptions);
-
-
         }
 
         private HttpClient InitializationHttpClient(ClientOptions clientOptions)
@@ -78,8 +78,21 @@ namespace RK7Die.CashServer
             }
         }
 
+        private RK7QueryResult DeserializeResult(string xmlResult, Type resultType)
+        {
+            var serializer = new XmlSerializer(resultType);
+            RK7QueryResult result;
+
+            using (TextReader reader = new StringReader(xmlResult))
+            {
+                result = serializer.Deserialize(reader) as RK7QueryResult;
+            }
+
+            return result;
+        }
+
         //TODO переписать на Async
-        public string SendQuery(RK7Cmd _RK7CMD)
+        public RK7QueryResult SendQuery(RK7Cmd _RK7CMD, Type resultType)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -88,15 +101,21 @@ namespace RK7Die.CashServer
 
             string xmlBody = SerializeQuery(rK7Query);
 
+            _logger.LogDebug($"Request xmlBody: {xmlBody}");
+
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, _httpClient.BaseAddress)
             {
                 Content = new StringContent(xmlBody, Encoding.GetEncoding(_codePage), "text/xml")
             };
 
             var responce = _httpClient.SendAsync(httpRequest).GetAwaiter().GetResult();
-            string result = responce.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var resultString = responce.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            return result;
+            _logger.LogDebug($"Result: {resultString}");
+
+            var resultObject = DeserializeResult(resultString, resultType);
+            
+            return resultObject;
         }
     }
 
