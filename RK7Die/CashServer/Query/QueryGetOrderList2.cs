@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RK7Die.CashServer.Query
 {
-    public partial class GetOrderList : RK7Cmd
+    public partial class QueryGetOrderList2 : RK7Cmd
     {
         /// <summary>
         /// <para xml:lang="ru">Официант. Если задан, то возвращаются заказы, которые официант может обслуживать</para>
@@ -20,7 +20,7 @@ namespace RK7Die.CashServer.Query
         public RK7Die.CashServer.Common.RefItem Table { get; set; }
 
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private string _cMD = "GetOrderList";
+        private string _cMD = "GetOrderList2";
 
         [System.Xml.Serialization.XmlAttributeAttribute("CMD", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public new string CMD
@@ -50,13 +50,15 @@ namespace RK7Die.CashServer.Query
 
         /// <summary>
         /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die OnlyOpened-Eigenschaft spezifiziert ist, oder legt diesen fest.</para>
+        /// <para xml:lang="en">Gets or sets a value indicating whether the OnlyOpened property is specified.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public bool OnlyOpenedValueSpecified { get; set; }
 
         /// <summary>
-        /// <para xml:lang="ru">Флаг - вернуть только активные заказы</para>
+        /// <para xml:lang="ru">Флаг - вернуть только активные
+        ///                                    заказы</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         public System.Nullable<bool> OnlyOpened
@@ -76,66 +78,6 @@ namespace RK7Die.CashServer.Query
             {
                 this.OnlyOpenedValue = value.GetValueOrDefault();
                 this.OnlyOpenedValueSpecified = value.HasValue;
-            }
-        }
-
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private bool _needIdents = true;
-
-        /// <summary>
-        /// <para xml:lang="ru">Флаг - возвращать идентификаторы элементов</para>
-        /// </summary>
-        [System.ComponentModel.DefaultValueAttribute(true)]
-        [System.Xml.Serialization.XmlAttributeAttribute("needIdents", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool NeedIdents
-        {
-            get
-            {
-                return this._needIdents;
-            }
-            set
-            {
-                this._needIdents = value;
-            }
-        }
-
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private bool _needCodes = true;
-
-        /// <summary>
-        /// <para xml:lang="ru">Флаг - возвращать коды элементов</para>
-        /// </summary>
-        [System.ComponentModel.DefaultValueAttribute(true)]
-        [System.Xml.Serialization.XmlAttributeAttribute("needCodes", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool NeedCodes
-        {
-            get
-            {
-                return this._needCodes;
-            }
-            set
-            {
-                this._needCodes = value;
-            }
-        }
-
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private bool _needNames = false;
-
-        /// <summary>
-        /// <para xml:lang="ru">Флаг - возвращать имена элементов</para>
-        /// </summary>
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        [System.Xml.Serialization.XmlAttributeAttribute("needNames", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool NeedNames
-        {
-            get
-            {
-                return this._needNames;
-            }
-            set
-            {
-                this._needNames = value;
             }
         }
     }

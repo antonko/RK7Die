@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RK7Die.CashServer;
 using RK7Die.CashServer.Query;
+using RK7Die.CashServer.Result;
 using Serilog;
 
 namespace RK7Die.Example
@@ -44,12 +45,12 @@ namespace RK7Die.Example
         {
             Log.Logger.Warning($"Выполнение запроса GetOrderList");
 
-            GetOrderList getOrderListRequest = new GetOrderList
+            QueryGetOrderList queryGetOrderList = new QueryGetOrderList
             {
                 OnlyOpened = true
             };
 
-            var getOrderListResult = _client.SendQuery(getOrderListRequest, typeof(RK7Die.CashServer.Result.GetOrderList)) as RK7Die.CashServer.Result.GetOrderList;
+            var getOrderListResult = _client.SendQuery(queryGetOrderList, typeof(ResultGetOrderList)) as ResultGetOrderList;
 
             var orderCount = getOrderListResult.Visit.SelectMany(c => c.Orders).Count();
 
@@ -60,12 +61,12 @@ namespace RK7Die.Example
         {
             Log.Logger.Warning($"Выполнение запроса GetOrderList2");
 
-            GetOrderList2 getOrderListRequest2 = new GetOrderList2
+            QueryGetOrderList2 queryGetOrderList2 = new QueryGetOrderList2
             {
-                OnlyOpened = true
+                OnlyOpened = false
             };
 
-            var getOrderListResult = _client.SendQuery(getOrderListRequest2, typeof(RK7Die.CashServer.Result.GetOrderList2)) as RK7Die.CashServer.Result.GetOrderList2;
+            var getOrderListResult = _client.SendQuery(queryGetOrderList2, typeof(ResultGetOrderList2)) as ResultGetOrderList2;
 
             var orderCount = getOrderListResult.Visit.SelectMany(c => c.Orders).Count();
 

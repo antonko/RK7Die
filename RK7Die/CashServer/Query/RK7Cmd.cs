@@ -5,8 +5,8 @@ using System.Text;
 namespace RK7Die.CashServer.Query
 {
     [System.Xml.Serialization.XmlTypeAttribute("RK7CMD", Namespace = "", AnonymousType = true)]
-    [System.Xml.Serialization.XmlInclude(typeof(RK7Die.CashServer.Query.GetOrderList))]
-    [System.Xml.Serialization.XmlInclude(typeof(RK7Die.CashServer.Query.GetOrderList2))]
+    [System.Xml.Serialization.XmlInclude(typeof(RK7Die.CashServer.Query.QueryGetOrderList))]
+    [System.Xml.Serialization.XmlInclude(typeof(RK7Die.CashServer.Query.QueryGetOrderList2))]
     public abstract class RK7Cmd
     {
         public RK7Cmd()

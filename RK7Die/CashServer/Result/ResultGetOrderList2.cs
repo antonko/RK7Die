@@ -10,7 +10,7 @@ namespace RK7Die.CashServer.Result
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.0.0")]
     [System.Xml.Serialization.XmlRootAttribute("RK7QueryResult", Namespace = "")]
-    public partial class GetOrderList2 : RK7QueryResult
+    public partial class ResultGetOrderList2 : RK7QueryResult
     {
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<VisitItem> _visit;
@@ -45,7 +45,7 @@ namespace RK7Die.CashServer.Result
         /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="RK7QueryResult" /> Klasse.</para>
         /// <para xml:lang="en">Initializes a new instance of the <see cref="RK7QueryResult" /> class.</para>
         /// </summary>
-        public GetOrderList2()
+        public ResultGetOrderList2()
         {
             this._visit = new System.Collections.ObjectModel.Collection<VisitItem>();
         }
