@@ -36,6 +36,7 @@ namespace RK7Die.Example
 
             GetOrderList();
             GetOrderList2();
+            GetOrder();
 
             Console.WriteLine("Press any key...");
             Console.ReadKey();
@@ -71,6 +72,28 @@ namespace RK7Die.Example
             var orderCount = getOrderListResult.Visit.SelectMany(c => c.Orders).Count();
 
             Log.Logger.Warning($"Всего заказов: {orderCount}");
+        }
+
+        static private void GetOrder()
+        {
+            Log.Logger.Warning($"Выполнение запроса GetOrder");
+
+            QueryGetOrderList queryGetOrderList = new QueryGetOrderList();
+
+            Log.Logger.Warning($"Берем первый попавшийся заказ");
+            var getOrderListResult = _client.SendQuery(queryGetOrderList, typeof(ResultGetOrderList)) as ResultGetOrderList;
+
+            QueryGetOrder getOrder = new QueryGetOrder
+            {
+                Order = new CashServer.Common.OrderElement
+                {
+                    Guid = getOrderListResult.Visit.SelectMany(v => v.Orders).FirstOrDefault().Guid
+                }
+            };
+
+            var result = _client.SendQuery(getOrder, typeof(ResultGetOrder)) as ResultGetOrder;
+
+            Log.Logger.Warning($"Создатель заказа: {result.Order.Creator.Name}");
         }
     }
 }

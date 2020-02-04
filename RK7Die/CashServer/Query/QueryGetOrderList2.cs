@@ -4,6 +4,9 @@ using System.Text;
 
 namespace RK7Die.CashServer.Query
 {
+    /// <summary>
+    /// <para xml:lang="ru">Получить список заказов (ver 2)</para>
+    /// </summary>
     public partial class QueryGetOrderList2 : RK7Cmd
     {
         /// <summary>
