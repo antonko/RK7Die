@@ -4,6 +4,8 @@ using System.Text;
 
 namespace RK7Die.CashServer.Query
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.0.0")]
+    [System.Xml.Serialization.XmlTypeAttribute("RK7Cmd", Namespace = "", AnonymousType = false)]
     public partial class GetOrderList : RK7Cmd
     {
         /// <summary>
@@ -13,7 +15,8 @@ namespace RK7Die.CashServer.Query
         public RK7Die.CashServer.Common.RefItem Waiter { get; set; }
 
         /// <summary>
-        /// <para xml:lang="ru">Стол. Если задан, то возвращаются заказы для этого стола</para>
+        /// <para xml:lang="ru">Стол. Если задан, то
+        ///                                        возвращаются заказы для этого стола</para>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Table", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public RK7Die.CashServer.Common.RefItem Table { get; set; }
@@ -42,18 +45,42 @@ namespace RK7Die.CashServer.Query
         public string Lastversion { get; set; }
 
         /// <summary>
-        /// <para xml:lang="ru">Флаг - вернуть только активные
-        ///                                    заказы</para>
+        /// <para xml:lang="ru">Флаг - вернуть только активные заказы</para>
         /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Xml.Serialization.XmlAttributeAttribute("onlyOpened", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool OnlyOpened { get; set; }
+        public bool OnlyOpenedValue { get; set; }
 
         /// <summary>
         /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die OnlyOpened-Eigenschaft spezifiziert ist, oder legt diesen fest.</para>
-        /// <para xml:lang="en">Gets or sets a value indicating whether the OnlyOpened property is specified.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool OnlyOpenedSpecified { get; set; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public bool OnlyOpenedValueSpecified { get; set; }
+
+        /// <summary>
+        /// <para xml:lang="ru">Флаг - вернуть только активные заказы</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public System.Nullable<bool> OnlyOpened
+        {
+            get
+            {
+                if (this.OnlyOpenedValueSpecified)
+                {
+                    return this.OnlyOpenedValue;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                this.OnlyOpenedValue = value.GetValueOrDefault();
+                this.OnlyOpenedValueSpecified = value.HasValue;
+            }
+        }
 
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private bool _needIdents = true;

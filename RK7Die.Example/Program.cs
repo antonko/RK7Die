@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,12 +38,17 @@ namespace RK7Die.Example
 
         static private void GetOrderList(Client client)
         {
-            GetOrderList getOrderList = new GetOrderList
+            GetOrderList getOrderListRequest = new GetOrderList
             {
-                OnlyOpened = true
+                OnlyOpened = false,
+                //NeedIdents = true,
             };
 
-            string result = client.SendQuery(getOrderList);
+            var getOrderListResult = client.SendQuery(getOrderListRequest, typeof(RK7Die.CashServer.Result.GetOrderList)) as RK7Die.CashServer.Result.GetOrderList;
+
+            var orderCount = getOrderListResult.Visit.SelectMany(c => c.Orders).Count();
+
+            Log.Logger.Warning($"Всего заказов: {orderCount}");
         }
     }
 }

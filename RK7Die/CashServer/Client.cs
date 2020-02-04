@@ -83,7 +83,7 @@ namespace RK7Die.CashServer
             var serializer = new XmlSerializer(resultType);
             RK7QueryResult result;
 
-            using (TextReader reader = new StringReader(xmlResult))
+            using (StringReader reader = new StringReader(xmlResult))
             {
                 result = serializer.Deserialize(reader) as RK7QueryResult;
             }
@@ -92,12 +92,11 @@ namespace RK7Die.CashServer
         }
 
         //TODO переписать на Async
-        public RK7QueryResult SendQuery(RK7Cmd _RK7CMD, Type resultType)
+        public RK7QueryResult SendQuery(RK7Cmd _RK7Cmd, Type resultType)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            RK7Query rK7Query = new RK7Query();
-            rK7Query.RK7Cmd = _RK7CMD;
+            RK7Query rK7Query = new RK7Query { RK7Cmd = _RK7Cmd };
 
             string xmlBody = SerializeQuery(rK7Query);
 
