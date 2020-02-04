@@ -12,6 +12,8 @@ namespace RK7Die.Example
 {
     public class Program
     {
+        static RK7Die.CashServer.Client _client;
+
         public static void Main(string[] args)
         {
             var host = Host
@@ -29,22 +31,41 @@ namespace RK7Die.Example
 
             host.RunAsync();
 
-            var client = host.Services.GetService<RK7Die.CashServer.Client>();
+            _client = host.Services.GetService<RK7Die.CashServer.Client>();
 
-            GetOrderList(client);
+            GetOrderList();
+            GetOrderList2();
 
+            Console.WriteLine("Press any key...");
             Console.ReadKey();
         }
 
-        static private void GetOrderList(Client client)
+        static private void GetOrderList()
         {
+            Log.Logger.Warning($"Выполнение запроса GetOrderList");
+
             GetOrderList getOrderListRequest = new GetOrderList
             {
-                OnlyOpened = false,
-                //NeedIdents = true,
+                OnlyOpened = true
             };
 
-            var getOrderListResult = client.SendQuery(getOrderListRequest, typeof(RK7Die.CashServer.Result.GetOrderList)) as RK7Die.CashServer.Result.GetOrderList;
+            var getOrderListResult = _client.SendQuery(getOrderListRequest, typeof(RK7Die.CashServer.Result.GetOrderList)) as RK7Die.CashServer.Result.GetOrderList;
+
+            var orderCount = getOrderListResult.Visit.SelectMany(c => c.Orders).Count();
+
+            Log.Logger.Warning($"Открытых заказов: {orderCount}");
+        }
+
+        static private void GetOrderList2()
+        {
+            Log.Logger.Warning($"Выполнение запроса GetOrderList2");
+
+            GetOrderList2 getOrderListRequest2 = new GetOrderList2
+            {
+                OnlyOpened = true
+            };
+
+            var getOrderListResult = _client.SendQuery(getOrderListRequest2, typeof(RK7Die.CashServer.Result.GetOrderList2)) as RK7Die.CashServer.Result.GetOrderList2;
 
             var orderCount = getOrderListResult.Visit.SelectMany(c => c.Orders).Count();
 

@@ -107,8 +107,18 @@ namespace RK7Die.CashServer
                 Content = new StringContent(xmlBody, Encoding.GetEncoding(_codePage), "text/xml")
             };
 
-            var responce = _httpClient.SendAsync(httpRequest).GetAwaiter().GetResult();
-            var resultString = responce.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            string resultString;
+
+            try
+            {
+                var responce = _httpClient.SendAsync(httpRequest).GetAwaiter().GetResult();
+                resultString = responce.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw ex;
+            }
 
             _logger.LogDebug($"Result: {resultString}");
 
