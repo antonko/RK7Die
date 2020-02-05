@@ -76,14 +76,16 @@ namespace RK7Die
                 httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
             }
 
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             return httpClient;
         }
 
-        private string SerializeQuery(RK7Query _RK7Query)
+        private string SerializeQuery(RK7Query RK7Query)
         {
             using (var textWriter = new StringWriter())
             {
-                new XmlSerializer(_RK7Query.GetType()).Serialize(textWriter, _RK7Query);
+                new XmlSerializer(RK7Query.GetType()).Serialize(textWriter, RK7Query);
                 return textWriter.ToString();
             }
         }
@@ -96,14 +98,9 @@ namespace RK7Die
             }
         }
 
-        //TODO переписать на Async
-        public async Task<RK7QueryResult> SendQuery(RK7Cmd _RK7Cmd, Type resultType)
+        public async Task<RK7QueryResult> SendQuery(RK7Cmd RK7Cmd, Type resultType)
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            RK7Query rK7Query = new RK7Query { RK7Cmd = _RK7Cmd };
-
-            string xmlBody = SerializeQuery(rK7Query);
+            string xmlBody = SerializeQuery(new RK7Query { RK7Cmd = RK7Cmd });
 
             _logger.LogDebug($"Request xmlBody: {xmlBody}");
 

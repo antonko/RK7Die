@@ -16,9 +16,15 @@ namespace RK7Die.Example
 {
     public class Program
     {
+        /// <summary>
+        /// Пример и использованием универсального узла .NET IHostedService
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            var host = Host.CreateDefaultBuilder(args).ConfigureServices((hostContext, services) =>
+            var host = Host
+                .CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
                 {
                     services.AddOptions();
                     services.Configure<RK7Die.ClientOptions>(hostContext.Configuration.GetSection("RK7Client"));
@@ -30,6 +36,18 @@ namespace RK7Die.Example
                 .Build();
 
             host.Run();
+
+            //RK7Die.Client rk7Client = new RK7Die.Client(
+            //    clientOptions: new ClientOptions
+            //    {
+            //        Host = "https://x.x.x.x:xxxx",
+            //        Username = "xxxx",
+            //        Password = "xxxx",
+            //        Path = "/rk7api/v0/xmlinterface.xml"
+            //    });
+
+            //var resultGetOrderList = await rk7Client.SendQuery(new QueryGetOrderList(), typeof(ResultGetOrderList));
+
         }
 
         public class Demo : BackgroundService
@@ -80,12 +98,9 @@ namespace RK7Die.Example
             /// </summary>
             public async Task GetOrder()
             {
-                Log.Logger.Warning($"Выполнение запроса GetOrder");
+                Log.Logger.Warning($"Выполнение запроса GetOrder. Сперва берем любой первый заказ.");
 
-                QueryGetOrderList queryGetOrderList = new QueryGetOrderList();
-
-                Log.Logger.Warning($"Берем первый попавшийся заказ");
-                var getOrderListResult = await _rk7Client.SendQuery(queryGetOrderList, typeof(ResultGetOrderList)) as ResultGetOrderList;
+                var getOrderListResult = await _rk7Client.SendQuery(new QueryGetOrderList(), typeof(ResultGetOrderList)) as ResultGetOrderList;
 
                 QueryGetOrder getOrder = new QueryGetOrder
                 {
