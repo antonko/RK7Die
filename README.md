@@ -19,15 +19,18 @@
 ## Конфигурация и запуск
 
 ```c#
-ClientOptions clientOptions = new ClientOptions
-{
-  Host = "https://x.x.x.x:xxxx", //Хост
-  Username = "xxxx", //Логин для basic-авторизации
-  Password = "xxxx", //Пароль 
-  Path = "/rk7api/v0/xmlinterface.xml" //Путь на кассовом сервере
-};
-```
+RK7Die.Client rk7Client = new RK7Die.Client(
+  clientOptions: new ClientOptions
+  {
+    Host = "https://x.x.x.x:xxxx",
+    Username = "xxxx",
+    Password = "xxxx",
+    Path = "/rk7api/v0/xmlinterface.xml"
+  });
 
+//Запрос GetOrderList, получить все заказы за текущую смену
+var resultGetOrderList = await rk7Client.SendQuery(new QueryGetOrderList(), typeof(ResultGetOrderList));
+```
 Для запуска Example надо прописать все данные сервера в appsettings.json
 
 Официальная документация от UCS: https://apidocs.ucs.ru/doku.php/ru:rk7xmlinterface
@@ -37,4 +40,5 @@ ClientOptions clientOptions = new ClientOptions
 * Внедрение зависимостей
 * Ведение журнала ILogger
 * Конфигурация через IConfigureOptions<TOptions>
+* Асинхронные методы
 
