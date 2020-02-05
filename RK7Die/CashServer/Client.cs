@@ -14,15 +14,25 @@ namespace RK7Die.CashServer
 {
     public class Client
     {
-        private readonly ILogger<Client> _logger;
+        private ILogger _logger;
         private readonly HttpClient _httpClient;
-        private readonly int _codePage;
+        private int _codePage;
         private readonly ClientOptions _clientOptions;
 
-        public Client(IOptionsMonitor<ClientOptions> clientOptions, ILogger<Client> logger = null)
+        public Client(IOptions<ClientOptions> clientOptions, ILogger<Client> logger = null)
         {
-            _clientOptions = clientOptions.CurrentValue;
+            _clientOptions = clientOptions.Value;
+            _httpClient = Initialization(_clientOptions, logger);
+        }
 
+        public Client(ClientOptions clientOptions, ILogger logger = null)
+        {
+            _clientOptions = clientOptions;
+            _httpClient = Initialization(_clientOptions, logger);
+        }
+
+        private HttpClient Initialization(ClientOptions clientOptions, ILogger logger)
+        {
             if (_clientOptions.ClientProtocol != ClientProtocol.http)
             {
                 _logger.LogError("Protocol is not supported by this library");
@@ -38,15 +48,10 @@ namespace RK7Die.CashServer
                 _logger = logger;
             }
 
+            _logger.LogWarning("Initialization RK7 CashServer Client");
+            
             _codePage = _clientOptions.Codepage;
 
-            _logger.LogWarning("Initialization RK7 CashServer Client");
-
-            _httpClient = InitializationHttpClient(_clientOptions);
-        }
-
-        private HttpClient InitializationHttpClient(ClientOptions clientOptions)
-        {
             //Так как на серверах RK7 используется самоподписанный сертификат, приходится игнорировать ошибку проверки сертификата
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.ServerCertificateCustomValidationCallback =
