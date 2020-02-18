@@ -57,7 +57,8 @@ namespace RK7Die
                 throw new Exception("Protocol is not supported by this library");
             }
 
-            _logger.LogWarning("Initialization RK7 CashServer Client");
+            _logger.LogDebug("Initialization RK7 CashServer Client");
+            _logger.LogTrace("ClientOptions: {@clientOptions}", clientOptions);
 
             //Так как на серверах RK7 используется самоподписанный сертификат, приходится игнорировать ошибку проверки сертификата
             HttpClientHandler httpClientHandler = new HttpClientHandler
@@ -86,6 +87,7 @@ namespace RK7Die
             using (var textWriter = new StringWriter())
             {
                 new XmlSerializer(RK7Query.GetType()).Serialize(textWriter, RK7Query);
+                _logger.LogTrace("Serialize Query: {textWriter}", textWriter.ToString());
                 return textWriter.ToString();
             }
         }
@@ -98,11 +100,13 @@ namespace RK7Die
             }
         }
 
-        public async Task<RK7QueryResult> SendQuery(RK7Cmd RK7Cmd, Type resultType)
+        public async Task<RK7QueryResult> SendQuery(RK7Cmd rK7Cmd, Type resultType)
         {
-            string xmlBody = SerializeQuery(new RK7Query { RK7Cmd = RK7Cmd });
+            if (rK7Cmd == null) throw new ArgumentNullException(nameof(rK7Cmd));
 
-            _logger.LogDebug($"Request xmlBody: {xmlBody}");
+            _logger.LogInformation("Sending request type: {RK7Cmd}", rK7Cmd.GetType());
+
+            string xmlBody = SerializeQuery(new RK7Query { RK7Cmd = rK7Cmd });
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, _httpClient.BaseAddress)
             {
@@ -111,17 +115,20 @@ namespace RK7Die
 
             try
             {
-                var responce = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
-                var resultString = await responce.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-                _logger.LogDebug($"Result: {resultString}");
-
+                var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
+                var resultString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                
+                _logger.LogTrace("R-Keeper server response: {resultString}", resultString);
+                
                 var resultObject = DeserializeResult(resultString, resultType);
+
+                _logger.LogTrace("Deserialize Result: {@resultObject}", resultObject);
+                
                 return resultObject;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex, "Error processing response R-Keeper");
                 throw;
             }
             finally
