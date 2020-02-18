@@ -210,6 +210,11 @@ namespace RK7Die.Common
     [System.Xml.Serialization.XmlTypeAttribute("CheckItemState", Namespace = "")]
     public enum CheckItemState
     {
+        /// <summary>
+        /// <para xml:lang="ru">Неизвестный статус</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
 
         /// <summary>
         /// <para xml:lang="ru">Открыт</para>
