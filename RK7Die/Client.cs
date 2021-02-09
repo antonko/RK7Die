@@ -116,14 +116,14 @@ namespace RK7Die
             try
             {
                 var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
-                var resultString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                
+                var resultString = Encoding.UTF8.GetString(await response.Content.ReadAsByteArrayAsync());
+
                 _logger.LogTrace("R-Keeper server response: {resultString}", resultString);
-                
+
                 var resultObject = DeserializeResult(resultString, resultType);
 
                 _logger.LogTrace("Deserialize Result: {@resultObject}", resultObject);
-                
+
                 return resultObject;
             }
             catch (Exception ex)
